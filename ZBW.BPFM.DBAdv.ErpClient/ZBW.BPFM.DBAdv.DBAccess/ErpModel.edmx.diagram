@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4100ca144c42440bbed08ce9d656f084" Name="Diagram1">
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.abteilung" Width="1.5" PointX="12.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.adresse" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.artikel" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.audit" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition" Width="1.5" PointX="14.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.bestellung" Width="1.5" PointX="12" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.kunde" Width="1.5" PointX="9.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.kundenpreis" Width="1.5" PointX="12" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.lager" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.lagerbuchung" Width="1.5" PointX="12" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.lagerposition" Width="1.5" PointX="9.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.land" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein" Width="1.5" PointX="14.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.lohnabrechnung" Width="1.5" PointX="17.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.mitarbeiter" Width="1.5" PointX="15" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.mwstsatz" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.ort" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.person" Width="1.5" PointX="7.5" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.rechnung" Width="1.5" PointX="12" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.strasse" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Zbw.Bpfm.DbAdv.ErpDbModel.zahlung" Width="1.5" PointX="14.25" PointY="25.125" IsExpanded="true" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.mitarbeiter_fk_Mitarbeiter_Abteilung" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.adresse_fk_Adresse_Ort" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.adresse_fk_Adresse_Strasse" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lager_fk_Lager_Adresse" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein_fk_Lieferschein_Adresse" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.person_fk_Person_Adresse" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.artikel_fk_Artikel_MwStSatz" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition_fk_Bestellposition_Artikel" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.kundenpreis_fk_KundenPreis_Artikel" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lagerbuchung_fk_Lagerbuchung_Artikel" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lagerposition_fk_LagerPosition_Artikel" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition_fk_Bestellposition_Bestellung" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition_fk_Bestellposition_KundenPreis" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition_fk_Bestellposition_LagerPosition" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.bestellung_fk_Bestellung_Kunde" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein_fk_Lieferschein_Bestellung" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.kunde_fk_Kunde_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.kundenpreis_fk_KundenPreis_Kunde" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.rechnung_fk_Rechnung_Kunde" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.zahlung_fk_Zahlung_Kunde" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lager_fk_Lager_Lager" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lagerposition_fk_LagerPosition_Lager" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lagerbuchung_fk_Lagerbuchung_Lagerposition" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.ort_fk_Ort_Land" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein_fk_Lieferschein_Lieferschein" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein_fk_Lieferschein_Rechnung" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.mitarbeiter_fk_Mitarbeiter_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.zahlung_fk_Zahlung_Rechnung" ManuallyRouted="false" />
+        <AssociationConnector Association="Zbw.Bpfm.DbAdv.ErpDbModel.kunde_mitarbeiter" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

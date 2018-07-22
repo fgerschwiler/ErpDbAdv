@@ -1,0 +1,1818 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Zbw.Bpfm.DbAdv.ErpDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="abteilung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="adresse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Adresse_Strasse" Type="int" />
+          <Property Name="Postfach" Type="nvarchar" MaxLength="255" />
+          <Property Name="Hausnummer" Type="nvarchar" MaxLength="5" />
+          <Property Name="fk_Adresse_Ort" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="artikel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtikelNr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="255" />
+          <Property Name="EP" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="BruttoVP" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="fk_Artikel_MwStSatz" Type="int" />
+          <Property Name="ssma$rowid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="audit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModQuery" Type="nvarchar(max)" />
+          <Property Name="ModTable" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="ModKind" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="ModUser" Type="nvarchar" MaxLength="64" />
+          <Property Name="ModTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bestellposition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Bestellposition_Artikel" Type="int" Nullable="false" />
+          <Property Name="Menge" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="fk_Bestellposition_LagerPosition" Type="int" Nullable="false" />
+          <Property Name="fk_Bestellposition_KundenPreis" Type="int" />
+          <Property Name="Notiz" Type="nvarchar" MaxLength="255" />
+          <Property Name="fk_Bestellposition_Bestellung" Type="int" />
+        </EntityType>
+        <EntityType Name="bestellung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bestelldatum" Type="date" Nullable="false" />
+          <Property Name="fk_Bestellung_Kunde" Type="int" Nullable="false" />
+          <Property Name="Kommission" Type="int" />
+          <Property Name="Bemerkung" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Kunde_Person" Type="int" Nullable="false" />
+          <Property Name="Organisation" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rabatt" Type="int" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Zbw.Bpfm.DbAdv.ErpDb.gruppenarbeit.kunde_mitarbeiter' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="kunde_mitarbeiter">
+          <Key>
+            <PropertyRef Name="fk_Kunde_Mitarbeiter_Kunde" />
+            <PropertyRef Name="fk_Kunde_Mitarbeiter_Mitarbeiter" />
+          </Key>
+          <Property Name="fk_Kunde_Mitarbeiter_Kunde" Type="int" Nullable="false" />
+          <Property Name="fk_Kunde_Mitarbeiter_Mitarbeiter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kundenpreis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_KundenPreis_Artikel" Type="int" Nullable="false" />
+          <Property Name="fk_KundenPreis_Kunde" Type="int" Nullable="false" />
+          <Property Name="Verkaufspreis" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="GueltigBis" Type="date" />
+          <Property Name="Waehrung" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Rabatt" Type="int" />
+        </EntityType>
+        <EntityType Name="lager">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="255" />
+          <Property Name="fk_Lager_Adresse" Type="int" Nullable="false" />
+          <Property Name="fk_Lager_Lager" Type="int" />
+        </EntityType>
+        <EntityType Name="lagerbuchung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Menge" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Buchungsdatum" Type="date" Nullable="false" />
+          <Property Name="fk_Lagerbuchung_Lagerposition" Type="int" Nullable="false" />
+          <Property Name="fk_Lagerbuchung_Artikel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lagerposition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_LagerPosition_Artikel" Type="int" Nullable="false" />
+          <Property Name="fk_LagerPosition_Lager" Type="int" Nullable="false" />
+          <Property Name="Menge" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="MinMenge" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="ssma$rowid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="land">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Kuerzel" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="lieferschein">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lieferdatum" Type="date" Nullable="false" />
+          <Property Name="fk_Lieferschein_Rechnung" Type="int" />
+          <Property Name="fk_Lieferschein_Lieferschein" Type="int" />
+          <Property Name="fk_Lieferschein_Bestellung" Type="int" Nullable="false" />
+          <Property Name="fk_Lieferschein_Adresse" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lohnabrechnung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Lohnabrechnung_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="Datum" Type="date" Nullable="false" />
+          <Property Name="SollStunden" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="IstStunden" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="FerienBezug" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="KrankheitStunden" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="UnbezahltStunden" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="EOErsatzberechtigteStunden" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="Stundenlohn" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="ssma$rowid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Mitarbeiter_Person" Type="int" Nullable="false" />
+          <Property Name="fk_Mitarbeiter_Abteilung" Type="int" Nullable="false" />
+          <Property Name="Salaer" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="Arbeitspensum" Type="int" Nullable="false" />
+          <Property Name="FerienSaldo" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="UeberstundenSaldo" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="Zivilstand" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AnzahlKinder" Type="int" />
+          <Property Name="Konfession" Type="nvarchar" MaxLength="255" />
+          <Property Name="AhVNr" Type="nvarchar" MaxLength="15" />
+          <Property Name="ssma$rowid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mwstsatz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prozentsatz" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ort">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+          <Property Name="Ort" Type="nvarchar" MaxLength="255" />
+          <Property Name="fk_Ort_Land" Type="int" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Anrede" Type="nvarchar" MaxLength="40" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Vorname" Type="nvarchar" MaxLength="255" />
+          <Property Name="fk_Person_Adresse" Type="int" Nullable="false" />
+          <Property Name="Telefonnummer" Type="nvarchar" MaxLength="40" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="rechnung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Rechnung_Kunde" Type="int" Nullable="false" />
+          <Property Name="Betrag" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="Bemerkung" Type="nvarchar" MaxLength="255" />
+          <Property Name="Datum" Type="date" />
+        </EntityType>
+        <EntityType Name="strasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="zahlung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_Zahlung_Kunde" Type="int" Nullable="false" />
+          <Property Name="fk_Zahlung_Rechnung" Type="int" Nullable="false" />
+          <Property Name="Betrag" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="adresse$fk_Adresse_Ort">
+          <End Role="ort" Type="Self.ort" Multiplicity="1" />
+          <End Role="adresse" Type="Self.adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adresse">
+              <PropertyRef Name="fk_Adresse_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="adresse$fk_Adresse_Strasse">
+          <End Role="strasse" Type="Self.strasse" Multiplicity="0..1" />
+          <End Role="adresse" Type="Self.adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strasse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adresse">
+              <PropertyRef Name="fk_Adresse_Strasse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="artikel$fk_Artikel_MwStSatz">
+          <End Role="mwstsatz" Type="Self.mwstsatz" Multiplicity="0..1" />
+          <End Role="artikel" Type="Self.artikel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mwstsatz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="artikel">
+              <PropertyRef Name="fk_Artikel_MwStSatz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition$fk_Bestellposition_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition$fk_Bestellposition_Bestellung">
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="0..1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bestellung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition$fk_Bestellposition_KundenPreis">
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="0..1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenpreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_KundenPreis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition$fk_Bestellposition_LagerPosition">
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lagerposition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_LagerPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellung$fk_Bestellung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellung">
+              <PropertyRef Name="fk_Bestellung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kunde$fk_Kunde_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kunde">
+              <PropertyRef Name="fk_Kunde_Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="kunde_mitarbeiter" Type="Self.kunde_mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kunde_mitarbeiter">
+              <PropertyRef Name="fk_Kunde_Mitarbeiter_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="kunde_mitarbeiter" Type="Self.kunde_mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kunde_mitarbeiter">
+              <PropertyRef Name="fk_Kunde_Mitarbeiter_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kundenpreis$fk_KundenPreis_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kundenpreis">
+              <PropertyRef Name="fk_KundenPreis_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kundenpreis$fk_KundenPreis_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kundenpreis">
+              <PropertyRef Name="fk_KundenPreis_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lager$fk_Lager_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="lager" Type="Self.lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lager">
+              <PropertyRef Name="fk_Lager_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lager$fk_Lager_Lager">
+          <End Role="lager" Type="Self.lager" Multiplicity="0..1" />
+          <End Role="lager1" Type="Self.lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lager">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lager1">
+              <PropertyRef Name="fk_Lager_Lager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerbuchung$fk_Lagerbuchung_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="lagerbuchung" Type="Self.lagerbuchung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerbuchung">
+              <PropertyRef Name="fk_Lagerbuchung_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerbuchung$fk_Lagerbuchung_Lagerposition">
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="1" />
+          <End Role="lagerbuchung" Type="Self.lagerbuchung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lagerposition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerbuchung">
+              <PropertyRef Name="fk_Lagerbuchung_Lagerposition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerposition$fk_LagerPosition_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerposition">
+              <PropertyRef Name="fk_LagerPosition_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerposition$fk_LagerPosition_Lager">
+          <End Role="lager" Type="Self.lager" Multiplicity="1" />
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lager">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerposition">
+              <PropertyRef Name="fk_LagerPosition_Lager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein$fk_Lieferschein_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein$fk_Lieferschein_Bestellung">
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bestellung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein$fk_Lieferschein_Lieferschein">
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="0..1" />
+          <End Role="lieferschein1" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lieferschein">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein1">
+              <PropertyRef Name="fk_Lieferschein_Lieferschein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein$fk_Lieferschein_Rechnung">
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="0..1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechnung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Rechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lohnabrechnung$fk_Lohnabrechnung_Mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="lohnabrechnung" Type="Self.lohnabrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lohnabrechnung">
+              <PropertyRef Name="fk_Lohnabrechnung_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter$fk_Mitarbeiter_Abteilung">
+          <End Role="abteilung" Type="Self.abteilung" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abteilung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="fk_Mitarbeiter_Abteilung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter$fk_Mitarbeiter_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="fk_Mitarbeiter_Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ort$fk_Ort_Land">
+          <End Role="land" Type="Self.land" Multiplicity="0..1" />
+          <End Role="ort" Type="Self.ort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="land">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ort">
+              <PropertyRef Name="fk_Ort_Land" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="person$fk_Person_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="fk_Person_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung$fk_Rechnung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="fk_Rechnung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="zahlung$fk_Zahlung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="zahlung" Type="Self.zahlung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="zahlung">
+              <PropertyRef Name="fk_Zahlung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="zahlung$fk_Zahlung_Rechnung">
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="1" />
+          <End Role="zahlung" Type="Self.zahlung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechnung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="zahlung">
+              <PropertyRef Name="fk_Zahlung_Rechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZbwBpfmDbAdvErpDbModelStoreContainer">
+          <EntitySet Name="abteilung" EntityType="Self.abteilung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="adresse" EntityType="Self.adresse" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="artikel" EntityType="Self.artikel" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="audit" EntityType="Self.audit" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="bestellposition" EntityType="Self.bestellposition" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="bestellung" EntityType="Self.bestellung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="kundenpreis" EntityType="Self.kundenpreis" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="lager" EntityType="Self.lager" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="lagerbuchung" EntityType="Self.lagerbuchung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="lagerposition" EntityType="Self.lagerposition" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="land" EntityType="Self.land" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="lieferschein" EntityType="Self.lieferschein" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="lohnabrechnung" EntityType="Self.lohnabrechnung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="mwstsatz" EntityType="Self.mwstsatz" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="ort" EntityType="Self.ort" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="rechnung" EntityType="Self.rechnung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="strasse" EntityType="Self.strasse" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="zahlung" EntityType="Self.zahlung" Schema="gruppenarbeit" store:Type="Tables" />
+          <EntitySet Name="kunde_mitarbeiter" EntityType="Self.kunde_mitarbeiter" store:Type="Tables" store:Schema="gruppenarbeit">
+            <DefiningQuery>SELECT 
+    [kunde_mitarbeiter].[fk_Kunde_Mitarbeiter_Kunde] AS [fk_Kunde_Mitarbeiter_Kunde], 
+    [kunde_mitarbeiter].[fk_Kunde_Mitarbeiter_Mitarbeiter] AS [fk_Kunde_Mitarbeiter_Mitarbeiter]
+    FROM [gruppenarbeit].[kunde_mitarbeiter] AS [kunde_mitarbeiter]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="adresse$fk_Adresse_Ort" Association="Self.adresse$fk_Adresse_Ort">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="adresse" EntitySet="adresse" />
+          </AssociationSet>
+          <AssociationSet Name="adresse$fk_Adresse_Strasse" Association="Self.adresse$fk_Adresse_Strasse">
+            <End Role="strasse" EntitySet="strasse" />
+            <End Role="adresse" EntitySet="adresse" />
+          </AssociationSet>
+          <AssociationSet Name="artikel$fk_Artikel_MwStSatz" Association="Self.artikel$fk_Artikel_MwStSatz">
+            <End Role="mwstsatz" EntitySet="mwstsatz" />
+            <End Role="artikel" EntitySet="artikel" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition$fk_Bestellposition_Artikel" Association="Self.bestellposition$fk_Bestellposition_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition$fk_Bestellposition_Bestellung" Association="Self.bestellposition$fk_Bestellposition_Bestellung">
+            <End Role="bestellung" EntitySet="bestellung" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition$fk_Bestellposition_KundenPreis" Association="Self.bestellposition$fk_Bestellposition_KundenPreis">
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition$fk_Bestellposition_LagerPosition" Association="Self.bestellposition$fk_Bestellposition_LagerPosition">
+            <End Role="lagerposition" EntitySet="lagerposition" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellung$fk_Bestellung_Kunde" Association="Self.bestellung$fk_Bestellung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="bestellung" EntitySet="bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="kunde$fk_Kunde_Person" Association="Self.kunde$fk_Kunde_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="kunde" EntitySet="kunde" />
+          </AssociationSet>
+          <AssociationSet Name="kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Kunde" Association="Self.kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="kunde_mitarbeiter" EntitySet="kunde_mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Mitarbeiter" Association="Self.kunde_mitarbeiter$fk_Kunde_Mitarbeiter_Mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="kunde_mitarbeiter" EntitySet="kunde_mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="kundenpreis$fk_KundenPreis_Artikel" Association="Self.kundenpreis$fk_KundenPreis_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+          </AssociationSet>
+          <AssociationSet Name="kundenpreis$fk_KundenPreis_Kunde" Association="Self.kundenpreis$fk_KundenPreis_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+          </AssociationSet>
+          <AssociationSet Name="lager$fk_Lager_Adresse" Association="Self.lager$fk_Lager_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="lager" EntitySet="lager" />
+          </AssociationSet>
+          <AssociationSet Name="lager$fk_Lager_Lager" Association="Self.lager$fk_Lager_Lager">
+            <End Role="lager" EntitySet="lager" />
+            <End Role="lager1" EntitySet="lager" />
+          </AssociationSet>
+          <AssociationSet Name="lagerbuchung$fk_Lagerbuchung_Artikel" Association="Self.lagerbuchung$fk_Lagerbuchung_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="lagerbuchung" EntitySet="lagerbuchung" />
+          </AssociationSet>
+          <AssociationSet Name="lagerbuchung$fk_Lagerbuchung_Lagerposition" Association="Self.lagerbuchung$fk_Lagerbuchung_Lagerposition">
+            <End Role="lagerposition" EntitySet="lagerposition" />
+            <End Role="lagerbuchung" EntitySet="lagerbuchung" />
+          </AssociationSet>
+          <AssociationSet Name="lagerposition$fk_LagerPosition_Artikel" Association="Self.lagerposition$fk_LagerPosition_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="lagerposition" EntitySet="lagerposition" />
+          </AssociationSet>
+          <AssociationSet Name="lagerposition$fk_LagerPosition_Lager" Association="Self.lagerposition$fk_LagerPosition_Lager">
+            <End Role="lager" EntitySet="lager" />
+            <End Role="lagerposition" EntitySet="lagerposition" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein$fk_Lieferschein_Adresse" Association="Self.lieferschein$fk_Lieferschein_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein$fk_Lieferschein_Bestellung" Association="Self.lieferschein$fk_Lieferschein_Bestellung">
+            <End Role="bestellung" EntitySet="bestellung" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein$fk_Lieferschein_Lieferschein" Association="Self.lieferschein$fk_Lieferschein_Lieferschein">
+            <End Role="lieferschein" EntitySet="lieferschein" />
+            <End Role="lieferschein1" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein$fk_Lieferschein_Rechnung" Association="Self.lieferschein$fk_Lieferschein_Rechnung">
+            <End Role="rechnung" EntitySet="rechnung" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lohnabrechnung$fk_Lohnabrechnung_Mitarbeiter" Association="Self.lohnabrechnung$fk_Lohnabrechnung_Mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="lohnabrechnung" EntitySet="lohnabrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter$fk_Mitarbeiter_Abteilung" Association="Self.mitarbeiter$fk_Mitarbeiter_Abteilung">
+            <End Role="abteilung" EntitySet="abteilung" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter$fk_Mitarbeiter_Person" Association="Self.mitarbeiter$fk_Mitarbeiter_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="ort$fk_Ort_Land" Association="Self.ort$fk_Ort_Land">
+            <End Role="land" EntitySet="land" />
+            <End Role="ort" EntitySet="ort" />
+          </AssociationSet>
+          <AssociationSet Name="person$fk_Person_Adresse" Association="Self.person$fk_Person_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung$fk_Rechnung_Kunde" Association="Self.rechnung$fk_Rechnung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="zahlung$fk_Zahlung_Kunde" Association="Self.zahlung$fk_Zahlung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="zahlung" EntitySet="zahlung" />
+          </AssociationSet>
+          <AssociationSet Name="zahlung$fk_Zahlung_Rechnung" Association="Self.zahlung$fk_Zahlung_Rechnung">
+            <End Role="rechnung" EntitySet="rechnung" />
+            <End Role="zahlung" EntitySet="zahlung" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Zbw.Bpfm.DbAdv.ErpDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="abteilung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_Mitarbeiter_Abteilung" FromRole="abteilung" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="adresse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Adresse_Strasse" Type="Int32" />
+          <Property Name="Postfach" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Hausnummer" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Adresse_Ort" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ort" Relationship="Self.adresse_fk_Adresse_Ort" FromRole="adresse" ToRole="ort" />
+          <NavigationProperty Name="strasse" Relationship="Self.adresse_fk_Adresse_Strasse" FromRole="adresse" ToRole="strasse" />
+          <NavigationProperty Name="lager" Relationship="Self.lager_fk_Lager_Adresse" FromRole="adresse" ToRole="lager" />
+          <NavigationProperty Name="lieferschein" Relationship="Self.lieferschein_fk_Lieferschein_Adresse" FromRole="adresse" ToRole="lieferschein" />
+          <NavigationProperty Name="person" Relationship="Self.person_fk_Person_Adresse" FromRole="adresse" ToRole="person" />
+        </EntityType>
+        <EntityType Name="artikel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArtikelNr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EP" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="BruttoVP" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="fk_Artikel_MwStSatz" Type="Int32" />
+          <Property Name="ssma_rowid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="mwstsatz" Relationship="Self.artikel_fk_Artikel_MwStSatz" FromRole="artikel" ToRole="mwstsatz" />
+          <NavigationProperty Name="bestellposition" Relationship="Self.bestellposition_fk_Bestellposition_Artikel" FromRole="artikel" ToRole="bestellposition" />
+          <NavigationProperty Name="kundenpreis" Relationship="Self.kundenpreis_fk_KundenPreis_Artikel" FromRole="artikel" ToRole="kundenpreis" />
+          <NavigationProperty Name="lagerbuchung" Relationship="Self.lagerbuchung_fk_Lagerbuchung_Artikel" FromRole="artikel" ToRole="lagerbuchung" />
+          <NavigationProperty Name="lagerposition" Relationship="Self.lagerposition_fk_LagerPosition_Artikel" FromRole="artikel" ToRole="lagerposition" />
+        </EntityType>
+        <EntityType Name="audit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModQuery" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModTable" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModKind" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModUser" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ModTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bestellposition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Bestellposition_Artikel" Type="Int32" Nullable="false" />
+          <Property Name="Menge" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="fk_Bestellposition_LagerPosition" Type="Int32" Nullable="false" />
+          <Property Name="fk_Bestellposition_KundenPreis" Type="Int32" />
+          <Property Name="Notiz" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Bestellposition_Bestellung" Type="Int32" />
+          <NavigationProperty Name="artikel" Relationship="Self.bestellposition_fk_Bestellposition_Artikel" FromRole="bestellposition" ToRole="artikel" />
+          <NavigationProperty Name="bestellung" Relationship="Self.bestellposition_fk_Bestellposition_Bestellung" FromRole="bestellposition" ToRole="bestellung" />
+          <NavigationProperty Name="kundenpreis" Relationship="Self.bestellposition_fk_Bestellposition_KundenPreis" FromRole="bestellposition" ToRole="kundenpreis" />
+          <NavigationProperty Name="lagerposition" Relationship="Self.bestellposition_fk_Bestellposition_LagerPosition" FromRole="bestellposition" ToRole="lagerposition" />
+        </EntityType>
+        <EntityType Name="bestellung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bestelldatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fk_Bestellung_Kunde" Type="Int32" Nullable="false" />
+          <Property Name="Kommission" Type="Int32" />
+          <Property Name="Bemerkung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bestellposition" Relationship="Self.bestellposition_fk_Bestellposition_Bestellung" FromRole="bestellung" ToRole="bestellposition" />
+          <NavigationProperty Name="kunde" Relationship="Self.bestellung_fk_Bestellung_Kunde" FromRole="bestellung" ToRole="kunde" />
+          <NavigationProperty Name="lieferschein" Relationship="Self.lieferschein_fk_Lieferschein_Bestellung" FromRole="bestellung" ToRole="lieferschein" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Kunde_Person" Type="Int32" Nullable="false" />
+          <Property Name="Organisation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Rabatt" Type="Int32" />
+          <NavigationProperty Name="bestellung" Relationship="Self.bestellung_fk_Bestellung_Kunde" FromRole="kunde" ToRole="bestellung" />
+          <NavigationProperty Name="person" Relationship="Self.kunde_fk_Kunde_Person" FromRole="kunde" ToRole="person" />
+          <NavigationProperty Name="kundenpreis" Relationship="Self.kundenpreis_fk_KundenPreis_Kunde" FromRole="kunde" ToRole="kundenpreis" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_Rechnung_Kunde" FromRole="kunde" ToRole="rechnung" />
+          <NavigationProperty Name="zahlung" Relationship="Self.zahlung_fk_Zahlung_Kunde" FromRole="kunde" ToRole="zahlung" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.kunde_mitarbeiter" FromRole="kunde" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="kundenpreis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_KundenPreis_Artikel" Type="Int32" Nullable="false" />
+          <Property Name="fk_KundenPreis_Kunde" Type="Int32" Nullable="false" />
+          <Property Name="Verkaufspreis" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="GueltigBis" Type="DateTime" Precision="0" />
+          <Property Name="Waehrung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rabatt" Type="Int32" />
+          <NavigationProperty Name="artikel" Relationship="Self.kundenpreis_fk_KundenPreis_Artikel" FromRole="kundenpreis" ToRole="artikel" />
+          <NavigationProperty Name="bestellposition" Relationship="Self.bestellposition_fk_Bestellposition_KundenPreis" FromRole="kundenpreis" ToRole="bestellposition" />
+          <NavigationProperty Name="kunde" Relationship="Self.kundenpreis_fk_KundenPreis_Kunde" FromRole="kundenpreis" ToRole="kunde" />
+        </EntityType>
+        <EntityType Name="lager">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Lager_Adresse" Type="Int32" Nullable="false" />
+          <Property Name="fk_Lager_Lager" Type="Int32" />
+          <NavigationProperty Name="adresse" Relationship="Self.lager_fk_Lager_Adresse" FromRole="lager" ToRole="adresse" />
+          <NavigationProperty Name="lager1" Relationship="Self.lager_fk_Lager_Lager" FromRole="lager" ToRole="lager1" />
+          <NavigationProperty Name="lager2" Relationship="Self.lager_fk_Lager_Lager" FromRole="lager1" ToRole="lager" />
+          <NavigationProperty Name="lagerposition" Relationship="Self.lagerposition_fk_LagerPosition_Lager" FromRole="lager" ToRole="lagerposition" />
+        </EntityType>
+        <EntityType Name="lagerbuchung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Menge" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Buchungsdatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fk_Lagerbuchung_Lagerposition" Type="Int32" Nullable="false" />
+          <Property Name="fk_Lagerbuchung_Artikel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="artikel" Relationship="Self.lagerbuchung_fk_Lagerbuchung_Artikel" FromRole="lagerbuchung" ToRole="artikel" />
+          <NavigationProperty Name="lagerposition" Relationship="Self.lagerbuchung_fk_Lagerbuchung_Lagerposition" FromRole="lagerbuchung" ToRole="lagerposition" />
+        </EntityType>
+        <EntityType Name="lagerposition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_LagerPosition_Artikel" Type="Int32" Nullable="false" />
+          <Property Name="fk_LagerPosition_Lager" Type="Int32" Nullable="false" />
+          <Property Name="Menge" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="MinMenge" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="ssma_rowid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="artikel" Relationship="Self.lagerposition_fk_LagerPosition_Artikel" FromRole="lagerposition" ToRole="artikel" />
+          <NavigationProperty Name="bestellposition" Relationship="Self.bestellposition_fk_Bestellposition_LagerPosition" FromRole="lagerposition" ToRole="bestellposition" />
+          <NavigationProperty Name="lager" Relationship="Self.lagerposition_fk_LagerPosition_Lager" FromRole="lagerposition" ToRole="lager" />
+          <NavigationProperty Name="lagerbuchung" Relationship="Self.lagerbuchung_fk_Lagerbuchung_Lagerposition" FromRole="lagerposition" ToRole="lagerbuchung" />
+        </EntityType>
+        <EntityType Name="land">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kuerzel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ort" Relationship="Self.ort_fk_Ort_Land" FromRole="land" ToRole="ort" />
+        </EntityType>
+        <EntityType Name="lieferschein">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lieferdatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fk_Lieferschein_Rechnung" Type="Int32" />
+          <Property Name="fk_Lieferschein_Lieferschein" Type="Int32" />
+          <Property Name="fk_Lieferschein_Bestellung" Type="Int32" Nullable="false" />
+          <Property Name="fk_Lieferschein_Adresse" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="adresse" Relationship="Self.lieferschein_fk_Lieferschein_Adresse" FromRole="lieferschein" ToRole="adresse" />
+          <NavigationProperty Name="bestellung" Relationship="Self.lieferschein_fk_Lieferschein_Bestellung" FromRole="lieferschein" ToRole="bestellung" />
+          <NavigationProperty Name="lieferschein1" Relationship="Self.lieferschein_fk_Lieferschein_Lieferschein" FromRole="lieferschein" ToRole="lieferschein1" />
+          <NavigationProperty Name="lieferschein2" Relationship="Self.lieferschein_fk_Lieferschein_Lieferschein" FromRole="lieferschein1" ToRole="lieferschein" />
+          <NavigationProperty Name="rechnung" Relationship="Self.lieferschein_fk_Lieferschein_Rechnung" FromRole="lieferschein" ToRole="rechnung" />
+        </EntityType>
+        <EntityType Name="lohnabrechnung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Lohnabrechnung_Mitarbeiter" Type="Int32" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SollStunden" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="IstStunden" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="FerienBezug" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="KrankheitStunden" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="UnbezahltStunden" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="EOErsatzberechtigteStunden" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="Stundenlohn" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="ssma_rowid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter" FromRole="lohnabrechnung" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Mitarbeiter_Person" Type="Int32" Nullable="false" />
+          <Property Name="fk_Mitarbeiter_Abteilung" Type="Int32" Nullable="false" />
+          <Property Name="Salaer" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="Arbeitspensum" Type="Int32" Nullable="false" />
+          <Property Name="FerienSaldo" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="UeberstundenSaldo" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="Zivilstand" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnzahlKinder" Type="Int32" />
+          <Property Name="Konfession" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AhVNr" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ssma_rowid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="abteilung" Relationship="Self.mitarbeiter_fk_Mitarbeiter_Abteilung" FromRole="mitarbeiter" ToRole="abteilung" />
+          <NavigationProperty Name="lohnabrechnung" Relationship="Self.lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter" FromRole="mitarbeiter" ToRole="lohnabrechnung" />
+          <NavigationProperty Name="person" Relationship="Self.mitarbeiter_fk_Mitarbeiter_Person" FromRole="mitarbeiter" ToRole="person" />
+          <NavigationProperty Name="kunde" Relationship="Self.kunde_mitarbeiter" FromRole="mitarbeiter" ToRole="kunde" />
+        </EntityType>
+        <EntityType Name="mwstsatz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prozentsatz" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <NavigationProperty Name="artikel" Relationship="Self.artikel_fk_Artikel_MwStSatz" FromRole="mwstsatz" ToRole="artikel" />
+        </EntityType>
+        <EntityType Name="ort">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <Property Name="Ort1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Ort_Land" Type="Int32" />
+          <NavigationProperty Name="adresse" Relationship="Self.adresse_fk_Adresse_Ort" FromRole="ort" ToRole="adresse" />
+          <NavigationProperty Name="land" Relationship="Self.ort_fk_Ort_Land" FromRole="ort" ToRole="land" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Anrede" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Person_Adresse" Type="Int32" Nullable="false" />
+          <Property Name="Telefonnummer" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="adresse" Relationship="Self.person_fk_Person_Adresse" FromRole="person" ToRole="adresse" />
+          <NavigationProperty Name="kunde" Relationship="Self.kunde_fk_Kunde_Person" FromRole="person" ToRole="kunde" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_Mitarbeiter_Person" FromRole="person" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="rechnung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Rechnung_Kunde" Type="Int32" Nullable="false" />
+          <Property Name="Betrag" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="Bemerkung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="kunde" Relationship="Self.rechnung_fk_Rechnung_Kunde" FromRole="rechnung" ToRole="kunde" />
+          <NavigationProperty Name="lieferschein" Relationship="Self.lieferschein_fk_Lieferschein_Rechnung" FromRole="rechnung" ToRole="lieferschein" />
+          <NavigationProperty Name="zahlung" Relationship="Self.zahlung_fk_Zahlung_Rechnung" FromRole="rechnung" ToRole="zahlung" />
+        </EntityType>
+        <EntityType Name="strasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="adresse" Relationship="Self.adresse_fk_Adresse_Strasse" FromRole="strasse" ToRole="adresse" />
+        </EntityType>
+        <EntityType Name="zahlung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_Zahlung_Kunde" Type="Int32" Nullable="false" />
+          <Property Name="fk_Zahlung_Rechnung" Type="Int32" Nullable="false" />
+          <Property Name="Betrag" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <NavigationProperty Name="kunde" Relationship="Self.zahlung_fk_Zahlung_Kunde" FromRole="zahlung" ToRole="kunde" />
+          <NavigationProperty Name="rechnung" Relationship="Self.zahlung_fk_Zahlung_Rechnung" FromRole="zahlung" ToRole="rechnung" />
+        </EntityType>
+        <Association Name="mitarbeiter_fk_Mitarbeiter_Abteilung">
+          <End Role="abteilung" Type="Self.abteilung" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abteilung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="fk_Mitarbeiter_Abteilung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="adresse_fk_Adresse_Ort">
+          <End Role="ort" Type="Self.ort" Multiplicity="1" />
+          <End Role="adresse" Type="Self.adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adresse">
+              <PropertyRef Name="fk_Adresse_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="adresse_fk_Adresse_Strasse">
+          <End Role="strasse" Type="Self.strasse" Multiplicity="0..1" />
+          <End Role="adresse" Type="Self.adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strasse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adresse">
+              <PropertyRef Name="fk_Adresse_Strasse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lager_fk_Lager_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="lager" Type="Self.lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lager">
+              <PropertyRef Name="fk_Lager_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein_fk_Lieferschein_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="person_fk_Person_Adresse">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="fk_Person_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="artikel_fk_Artikel_MwStSatz">
+          <End Role="mwstsatz" Type="Self.mwstsatz" Multiplicity="0..1" />
+          <End Role="artikel" Type="Self.artikel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mwstsatz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="artikel">
+              <PropertyRef Name="fk_Artikel_MwStSatz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition_fk_Bestellposition_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kundenpreis_fk_KundenPreis_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kundenpreis">
+              <PropertyRef Name="fk_KundenPreis_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerbuchung_fk_Lagerbuchung_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="lagerbuchung" Type="Self.lagerbuchung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerbuchung">
+              <PropertyRef Name="fk_Lagerbuchung_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerposition_fk_LagerPosition_Artikel">
+          <End Role="artikel" Type="Self.artikel" Multiplicity="1" />
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artikel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerposition">
+              <PropertyRef Name="fk_LagerPosition_Artikel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition_fk_Bestellposition_Bestellung">
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="0..1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bestellung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition_fk_Bestellposition_KundenPreis">
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="0..1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenpreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_KundenPreis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellposition_fk_Bestellposition_LagerPosition">
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="1" />
+          <End Role="bestellposition" Type="Self.bestellposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lagerposition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellposition">
+              <PropertyRef Name="fk_Bestellposition_LagerPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bestellung_fk_Bestellung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bestellung">
+              <PropertyRef Name="fk_Bestellung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein_fk_Lieferschein_Bestellung">
+          <End Role="bestellung" Type="Self.bestellung" Multiplicity="1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bestellung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kunde_fk_Kunde_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kunde">
+              <PropertyRef Name="fk_Kunde_Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kundenpreis_fk_KundenPreis_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="kundenpreis" Type="Self.kundenpreis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kundenpreis">
+              <PropertyRef Name="fk_KundenPreis_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_Rechnung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="fk_Rechnung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="zahlung_fk_Zahlung_Kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="zahlung" Type="Self.zahlung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="zahlung">
+              <PropertyRef Name="fk_Zahlung_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lager_fk_Lager_Lager">
+          <End Role="lager" Type="Self.lager" Multiplicity="0..1" />
+          <End Role="lager1" Type="Self.lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lager">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lager1">
+              <PropertyRef Name="fk_Lager_Lager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerposition_fk_LagerPosition_Lager">
+          <End Role="lager" Type="Self.lager" Multiplicity="1" />
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lager">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerposition">
+              <PropertyRef Name="fk_LagerPosition_Lager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lagerbuchung_fk_Lagerbuchung_Lagerposition">
+          <End Role="lagerposition" Type="Self.lagerposition" Multiplicity="1" />
+          <End Role="lagerbuchung" Type="Self.lagerbuchung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lagerposition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lagerbuchung">
+              <PropertyRef Name="fk_Lagerbuchung_Lagerposition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ort_fk_Ort_Land">
+          <End Role="land" Type="Self.land" Multiplicity="0..1" />
+          <End Role="ort" Type="Self.ort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="land">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ort">
+              <PropertyRef Name="fk_Ort_Land" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein_fk_Lieferschein_Lieferschein">
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="0..1" />
+          <End Role="lieferschein1" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lieferschein">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein1">
+              <PropertyRef Name="fk_Lieferschein_Lieferschein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lieferschein_fk_Lieferschein_Rechnung">
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="0..1" />
+          <End Role="lieferschein" Type="Self.lieferschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechnung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lieferschein">
+              <PropertyRef Name="fk_Lieferschein_Rechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="lohnabrechnung" Type="Self.lohnabrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lohnabrechnung">
+              <PropertyRef Name="fk_Lohnabrechnung_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_fk_Mitarbeiter_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="fk_Mitarbeiter_Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="zahlung_fk_Zahlung_Rechnung">
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="1" />
+          <End Role="zahlung" Type="Self.zahlung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechnung">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="zahlung">
+              <PropertyRef Name="fk_Zahlung_Rechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="kunde_mitarbeiter">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ErpContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="abteilung" EntityType="Self.abteilung" />
+          <EntitySet Name="adresse" EntityType="Self.adresse" />
+          <EntitySet Name="artikel" EntityType="Self.artikel" />
+          <EntitySet Name="audit" EntityType="Self.audit" />
+          <EntitySet Name="bestellposition" EntityType="Self.bestellposition" />
+          <EntitySet Name="bestellung" EntityType="Self.bestellung" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" />
+          <EntitySet Name="kundenpreis" EntityType="Self.kundenpreis" />
+          <EntitySet Name="lager" EntityType="Self.lager" />
+          <EntitySet Name="lagerbuchung" EntityType="Self.lagerbuchung" />
+          <EntitySet Name="lagerposition" EntityType="Self.lagerposition" />
+          <EntitySet Name="land" EntityType="Self.land" />
+          <EntitySet Name="lieferschein" EntityType="Self.lieferschein" />
+          <EntitySet Name="lohnabrechnung" EntityType="Self.lohnabrechnung" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" />
+          <EntitySet Name="mwstsatz" EntityType="Self.mwstsatz" />
+          <EntitySet Name="ort" EntityType="Self.ort" />
+          <EntitySet Name="person" EntityType="Self.person" />
+          <EntitySet Name="rechnung" EntityType="Self.rechnung" />
+          <EntitySet Name="strasse" EntityType="Self.strasse" />
+          <EntitySet Name="zahlung" EntityType="Self.zahlung" />
+          <AssociationSet Name="mitarbeiter_fk_Mitarbeiter_Abteilung" Association="Self.mitarbeiter_fk_Mitarbeiter_Abteilung">
+            <End Role="abteilung" EntitySet="abteilung" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="adresse_fk_Adresse_Ort" Association="Self.adresse_fk_Adresse_Ort">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="adresse" EntitySet="adresse" />
+          </AssociationSet>
+          <AssociationSet Name="adresse_fk_Adresse_Strasse" Association="Self.adresse_fk_Adresse_Strasse">
+            <End Role="strasse" EntitySet="strasse" />
+            <End Role="adresse" EntitySet="adresse" />
+          </AssociationSet>
+          <AssociationSet Name="lager_fk_Lager_Adresse" Association="Self.lager_fk_Lager_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="lager" EntitySet="lager" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein_fk_Lieferschein_Adresse" Association="Self.lieferschein_fk_Lieferschein_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="person_fk_Person_Adresse" Association="Self.person_fk_Person_Adresse">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="artikel_fk_Artikel_MwStSatz" Association="Self.artikel_fk_Artikel_MwStSatz">
+            <End Role="mwstsatz" EntitySet="mwstsatz" />
+            <End Role="artikel" EntitySet="artikel" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition_fk_Bestellposition_Artikel" Association="Self.bestellposition_fk_Bestellposition_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="kundenpreis_fk_KundenPreis_Artikel" Association="Self.kundenpreis_fk_KundenPreis_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+          </AssociationSet>
+          <AssociationSet Name="lagerbuchung_fk_Lagerbuchung_Artikel" Association="Self.lagerbuchung_fk_Lagerbuchung_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="lagerbuchung" EntitySet="lagerbuchung" />
+          </AssociationSet>
+          <AssociationSet Name="lagerposition_fk_LagerPosition_Artikel" Association="Self.lagerposition_fk_LagerPosition_Artikel">
+            <End Role="artikel" EntitySet="artikel" />
+            <End Role="lagerposition" EntitySet="lagerposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition_fk_Bestellposition_Bestellung" Association="Self.bestellposition_fk_Bestellposition_Bestellung">
+            <End Role="bestellung" EntitySet="bestellung" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition_fk_Bestellposition_KundenPreis" Association="Self.bestellposition_fk_Bestellposition_KundenPreis">
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellposition_fk_Bestellposition_LagerPosition" Association="Self.bestellposition_fk_Bestellposition_LagerPosition">
+            <End Role="lagerposition" EntitySet="lagerposition" />
+            <End Role="bestellposition" EntitySet="bestellposition" />
+          </AssociationSet>
+          <AssociationSet Name="bestellung_fk_Bestellung_Kunde" Association="Self.bestellung_fk_Bestellung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="bestellung" EntitySet="bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein_fk_Lieferschein_Bestellung" Association="Self.lieferschein_fk_Lieferschein_Bestellung">
+            <End Role="bestellung" EntitySet="bestellung" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="kunde_fk_Kunde_Person" Association="Self.kunde_fk_Kunde_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="kunde" EntitySet="kunde" />
+          </AssociationSet>
+          <AssociationSet Name="kundenpreis_fk_KundenPreis_Kunde" Association="Self.kundenpreis_fk_KundenPreis_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="kundenpreis" EntitySet="kundenpreis" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_Rechnung_Kunde" Association="Self.rechnung_fk_Rechnung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="zahlung_fk_Zahlung_Kunde" Association="Self.zahlung_fk_Zahlung_Kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="zahlung" EntitySet="zahlung" />
+          </AssociationSet>
+          <AssociationSet Name="lager_fk_Lager_Lager" Association="Self.lager_fk_Lager_Lager">
+            <End Role="lager" EntitySet="lager" />
+            <End Role="lager1" EntitySet="lager" />
+          </AssociationSet>
+          <AssociationSet Name="lagerposition_fk_LagerPosition_Lager" Association="Self.lagerposition_fk_LagerPosition_Lager">
+            <End Role="lager" EntitySet="lager" />
+            <End Role="lagerposition" EntitySet="lagerposition" />
+          </AssociationSet>
+          <AssociationSet Name="lagerbuchung_fk_Lagerbuchung_Lagerposition" Association="Self.lagerbuchung_fk_Lagerbuchung_Lagerposition">
+            <End Role="lagerposition" EntitySet="lagerposition" />
+            <End Role="lagerbuchung" EntitySet="lagerbuchung" />
+          </AssociationSet>
+          <AssociationSet Name="ort_fk_Ort_Land" Association="Self.ort_fk_Ort_Land">
+            <End Role="land" EntitySet="land" />
+            <End Role="ort" EntitySet="ort" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein_fk_Lieferschein_Lieferschein" Association="Self.lieferschein_fk_Lieferschein_Lieferschein">
+            <End Role="lieferschein" EntitySet="lieferschein" />
+            <End Role="lieferschein1" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lieferschein_fk_Lieferschein_Rechnung" Association="Self.lieferschein_fk_Lieferschein_Rechnung">
+            <End Role="rechnung" EntitySet="rechnung" />
+            <End Role="lieferschein" EntitySet="lieferschein" />
+          </AssociationSet>
+          <AssociationSet Name="lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter" Association="Self.lohnabrechnung_fk_Lohnabrechnung_Mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="lohnabrechnung" EntitySet="lohnabrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_fk_Mitarbeiter_Person" Association="Self.mitarbeiter_fk_Mitarbeiter_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="zahlung_fk_Zahlung_Rechnung" Association="Self.zahlung_fk_Zahlung_Rechnung">
+            <End Role="rechnung" EntitySet="rechnung" />
+            <End Role="zahlung" EntitySet="zahlung" />
+          </AssociationSet>
+          <AssociationSet Name="kunde_mitarbeiter" Association="Self.kunde_mitarbeiter">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZbwBpfmDbAdvErpDbModelStoreContainer" CdmEntityContainer="ErpContext">
+          <EntitySetMapping Name="abteilung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.abteilung">
+              <MappingFragment StoreEntitySet="abteilung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="adresse">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.adresse">
+              <MappingFragment StoreEntitySet="adresse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Adresse_Strasse" ColumnName="fk_Adresse_Strasse" />
+                <ScalarProperty Name="Postfach" ColumnName="Postfach" />
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="fk_Adresse_Ort" ColumnName="fk_Adresse_Ort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artikel">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.artikel">
+              <MappingFragment StoreEntitySet="artikel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ArtikelNr" ColumnName="ArtikelNr" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="EP" ColumnName="EP" />
+                <ScalarProperty Name="BruttoVP" ColumnName="BruttoVP" />
+                <ScalarProperty Name="fk_Artikel_MwStSatz" ColumnName="fk_Artikel_MwStSatz" />
+                <ScalarProperty Name="ssma_rowid" ColumnName="ssma$rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audit">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.audit">
+              <MappingFragment StoreEntitySet="audit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ModQuery" ColumnName="ModQuery" />
+                <ScalarProperty Name="ModTable" ColumnName="ModTable" />
+                <ScalarProperty Name="ModKind" ColumnName="ModKind" />
+                <ScalarProperty Name="ModUser" ColumnName="ModUser" />
+                <ScalarProperty Name="ModTime" ColumnName="ModTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bestellposition">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.bestellposition">
+              <MappingFragment StoreEntitySet="bestellposition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Bestellposition_Artikel" ColumnName="fk_Bestellposition_Artikel" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="fk_Bestellposition_LagerPosition" ColumnName="fk_Bestellposition_LagerPosition" />
+                <ScalarProperty Name="fk_Bestellposition_KundenPreis" ColumnName="fk_Bestellposition_KundenPreis" />
+                <ScalarProperty Name="Notiz" ColumnName="Notiz" />
+                <ScalarProperty Name="fk_Bestellposition_Bestellung" ColumnName="fk_Bestellposition_Bestellung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bestellung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.bestellung">
+              <MappingFragment StoreEntitySet="bestellung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bestelldatum" ColumnName="Bestelldatum" />
+                <ScalarProperty Name="fk_Bestellung_Kunde" ColumnName="fk_Bestellung_Kunde" />
+                <ScalarProperty Name="Kommission" ColumnName="Kommission" />
+                <ScalarProperty Name="Bemerkung" ColumnName="Bemerkung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kunde">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.kunde">
+              <MappingFragment StoreEntitySet="kunde">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Kunde_Person" ColumnName="fk_Kunde_Person" />
+                <ScalarProperty Name="Organisation" ColumnName="Organisation" />
+                <ScalarProperty Name="Rabatt" ColumnName="Rabatt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kundenpreis">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.kundenpreis">
+              <MappingFragment StoreEntitySet="kundenpreis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_KundenPreis_Artikel" ColumnName="fk_KundenPreis_Artikel" />
+                <ScalarProperty Name="fk_KundenPreis_Kunde" ColumnName="fk_KundenPreis_Kunde" />
+                <ScalarProperty Name="Verkaufspreis" ColumnName="Verkaufspreis" />
+                <ScalarProperty Name="GueltigBis" ColumnName="GueltigBis" />
+                <ScalarProperty Name="Waehrung" ColumnName="Waehrung" />
+                <ScalarProperty Name="Rabatt" ColumnName="Rabatt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lager">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.lager">
+              <MappingFragment StoreEntitySet="lager">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="fk_Lager_Adresse" ColumnName="fk_Lager_Adresse" />
+                <ScalarProperty Name="fk_Lager_Lager" ColumnName="fk_Lager_Lager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lagerbuchung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.lagerbuchung">
+              <MappingFragment StoreEntitySet="lagerbuchung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="Buchungsdatum" ColumnName="Buchungsdatum" />
+                <ScalarProperty Name="fk_Lagerbuchung_Lagerposition" ColumnName="fk_Lagerbuchung_Lagerposition" />
+                <ScalarProperty Name="fk_Lagerbuchung_Artikel" ColumnName="fk_Lagerbuchung_Artikel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lagerposition">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.lagerposition">
+              <MappingFragment StoreEntitySet="lagerposition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_LagerPosition_Artikel" ColumnName="fk_LagerPosition_Artikel" />
+                <ScalarProperty Name="fk_LagerPosition_Lager" ColumnName="fk_LagerPosition_Lager" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="MinMenge" ColumnName="MinMenge" />
+                <ScalarProperty Name="ssma_rowid" ColumnName="ssma$rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="land">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.land">
+              <MappingFragment StoreEntitySet="land">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="Kuerzel" ColumnName="Kuerzel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lieferschein">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.lieferschein">
+              <MappingFragment StoreEntitySet="lieferschein">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Lieferdatum" ColumnName="Lieferdatum" />
+                <ScalarProperty Name="fk_Lieferschein_Rechnung" ColumnName="fk_Lieferschein_Rechnung" />
+                <ScalarProperty Name="fk_Lieferschein_Lieferschein" ColumnName="fk_Lieferschein_Lieferschein" />
+                <ScalarProperty Name="fk_Lieferschein_Bestellung" ColumnName="fk_Lieferschein_Bestellung" />
+                <ScalarProperty Name="fk_Lieferschein_Adresse" ColumnName="fk_Lieferschein_Adresse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lohnabrechnung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.lohnabrechnung">
+              <MappingFragment StoreEntitySet="lohnabrechnung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Lohnabrechnung_Mitarbeiter" ColumnName="fk_Lohnabrechnung_Mitarbeiter" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="SollStunden" ColumnName="SollStunden" />
+                <ScalarProperty Name="IstStunden" ColumnName="IstStunden" />
+                <ScalarProperty Name="FerienBezug" ColumnName="FerienBezug" />
+                <ScalarProperty Name="KrankheitStunden" ColumnName="KrankheitStunden" />
+                <ScalarProperty Name="UnbezahltStunden" ColumnName="UnbezahltStunden" />
+                <ScalarProperty Name="EOErsatzberechtigteStunden" ColumnName="EOErsatzberechtigteStunden" />
+                <ScalarProperty Name="Stundenlohn" ColumnName="Stundenlohn" />
+                <ScalarProperty Name="ssma_rowid" ColumnName="ssma$rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mitarbeiter">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.mitarbeiter">
+              <MappingFragment StoreEntitySet="mitarbeiter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Mitarbeiter_Person" ColumnName="fk_Mitarbeiter_Person" />
+                <ScalarProperty Name="fk_Mitarbeiter_Abteilung" ColumnName="fk_Mitarbeiter_Abteilung" />
+                <ScalarProperty Name="Salaer" ColumnName="Salaer" />
+                <ScalarProperty Name="Arbeitspensum" ColumnName="Arbeitspensum" />
+                <ScalarProperty Name="FerienSaldo" ColumnName="FerienSaldo" />
+                <ScalarProperty Name="UeberstundenSaldo" ColumnName="UeberstundenSaldo" />
+                <ScalarProperty Name="Zivilstand" ColumnName="Zivilstand" />
+                <ScalarProperty Name="AnzahlKinder" ColumnName="AnzahlKinder" />
+                <ScalarProperty Name="Konfession" ColumnName="Konfession" />
+                <ScalarProperty Name="AhVNr" ColumnName="AhVNr" />
+                <ScalarProperty Name="ssma_rowid" ColumnName="ssma$rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mwstsatz">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.mwstsatz">
+              <MappingFragment StoreEntitySet="mwstsatz">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Prozentsatz" ColumnName="Prozentsatz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ort">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.ort">
+              <MappingFragment StoreEntitySet="ort">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort1" ColumnName="Ort" />
+                <ScalarProperty Name="fk_Ort_Land" ColumnName="fk_Ort_Land" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Anrede" ColumnName="Anrede" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="fk_Person_Adresse" ColumnName="fk_Person_Adresse" />
+                <ScalarProperty Name="Telefonnummer" ColumnName="Telefonnummer" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rechnung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.rechnung">
+              <MappingFragment StoreEntitySet="rechnung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Rechnung_Kunde" ColumnName="fk_Rechnung_Kunde" />
+                <ScalarProperty Name="Betrag" ColumnName="Betrag" />
+                <ScalarProperty Name="Bemerkung" ColumnName="Bemerkung" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strasse">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.strasse">
+              <MappingFragment StoreEntitySet="strasse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zahlung">
+            <EntityTypeMapping TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.zahlung">
+              <MappingFragment StoreEntitySet="zahlung">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fk_Zahlung_Kunde" ColumnName="fk_Zahlung_Kunde" />
+                <ScalarProperty Name="fk_Zahlung_Rechnung" ColumnName="fk_Zahlung_Rechnung" />
+                <ScalarProperty Name="Betrag" ColumnName="Betrag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="kunde_mitarbeiter" TypeName="Zbw.Bpfm.DbAdv.ErpDbModel.kunde_mitarbeiter" StoreEntitySet="kunde_mitarbeiter">
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="Id" ColumnName="fk_Kunde_Mitarbeiter_Kunde" />
+            </EndProperty>
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="Id" ColumnName="fk_Kunde_Mitarbeiter_Mitarbeiter" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

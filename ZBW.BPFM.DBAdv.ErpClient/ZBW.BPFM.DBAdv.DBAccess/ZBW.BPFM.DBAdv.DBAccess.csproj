@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +49,112 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="abteilung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="adresse.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="artikel.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="audit.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bestellposition.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bestellung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="ErpModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErpModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ErpModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ErpModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErpModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="kunde.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kundenpreis.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lager.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lagerbuchung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lagerposition.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="land.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lieferschein.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lohnabrechnung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mitarbeiter.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mwstsatz.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ort.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="person.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rechnung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="strasse.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zahlung.cs">
+      <DependentUpon>ErpModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="ErpModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ErpModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ErpModel.edmx.diagram">
+      <DependentUpon>ErpModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ErpModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ErpModel.edmx</DependentUpon>
+      <LastGenOutput>ErpModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ErpModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ErpModel.edmx</DependentUpon>
+      <LastGenOutput>ErpModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
