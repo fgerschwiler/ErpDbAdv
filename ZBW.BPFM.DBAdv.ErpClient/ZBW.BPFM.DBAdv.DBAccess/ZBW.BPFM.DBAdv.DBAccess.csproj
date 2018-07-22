@@ -67,7 +67,7 @@
     <Compile Include="bestellung.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AuftragRepository.cs" />
     <Compile Include="ErpModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
