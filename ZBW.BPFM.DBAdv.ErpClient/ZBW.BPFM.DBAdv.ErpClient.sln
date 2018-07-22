@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZBW.BPFM.DBAdv.ErpClient", "ZBW.BPFM.DBAdv.ErpClient\ZBW.BPFM.DBAdv.ErpClient.csproj", "{FF183EF0-6569-43A8-B9D6-B3F82BD6CE67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF183EF0-6569-43A8-B9D6-B3F82BD6CE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF183EF0-6569-43A8-B9D6-B3F82BD6CE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF183EF0-6569-43A8-B9D6-B3F82BD6CE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF183EF0-6569-43A8-B9D6-B3F82BD6CE67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00769D19-60FA-4013-9F90-D5F70D01B9C3}
+	EndGlobalSection
+EndGlobal
