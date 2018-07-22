@@ -1,11 +1,7 @@
-﻿using FirstFloor.ModernUI.Presentation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using FirstFloor.ModernUI.Presentation;
 
 namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
 {
@@ -32,7 +28,46 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
         };*/
 
         // 20 accent colors from Windows Phone 8
-        private Color[] accentColors = new Color[]{
+
+        private Color _selectedAccentColor;
+        private Link _selectedTheme;
+        private string _selectedFontSize;
+
+        public AppearanceViewModel()
+        {
+            // add the default themes
+            Themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
+            Themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
+
+            SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
+            SyncThemeAndColor();
+
+            AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
+        }
+
+        private void SyncThemeAndColor()
+        {
+            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
+            SelectedTheme = Themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
+
+            // and make sure accent color is up-to-date
+            SelectedAccentColor = AppearanceManager.Current.AccentColor;
+        }
+
+        private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
+            {
+                SyncThemeAndColor();
+            }
+        }
+
+        public LinkCollection Themes { get; } = new LinkCollection();
+
+        public string[] FontSizes => new[] { FontSmall, FontLarge };
+
+        public Color[] AccentColors { get; } =
+        {
             Color.FromRgb(0xa4, 0xc4, 0x00),   // lime
             Color.FromRgb(0x60, 0xa9, 0x17),   // green
             Color.FromRgb(0x00, 0x8a, 0x00),   // emerald
@@ -52,101 +87,52 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
             Color.FromRgb(0x6d, 0x87, 0x64),   // olive
             Color.FromRgb(0x64, 0x76, 0x87),   // steel
             Color.FromRgb(0x76, 0x60, 0x8a),   // mauve
-            Color.FromRgb(0x87, 0x79, 0x4e),   // taupe
+            Color.FromRgb(0x87, 0x79, 0x4e)   // taupe
         };
-
-        private Color selectedAccentColor;
-        private LinkCollection themes = new LinkCollection();
-        private Link selectedTheme;
-        private string selectedFontSize;
-
-        public AppearanceViewModel()
-        {
-            // add the default themes
-            this.themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
-            this.themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
-
-            this.SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
-            SyncThemeAndColor();
-
-            AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
-        }
-
-        private void SyncThemeAndColor()
-        {
-            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
-            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
-
-            // and make sure accent color is up-to-date
-            this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
-        }
-
-        private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
-            {
-                SyncThemeAndColor();
-            }
-        }
-
-        public LinkCollection Themes
-        {
-            get { return this.themes; }
-        }
-
-        public string[] FontSizes
-        {
-            get { return new string[] { FontSmall, FontLarge }; }
-        }
-
-        public Color[] AccentColors
-        {
-            get { return this.accentColors; }
-        }
 
         public Link SelectedTheme
         {
-            get { return this.selectedTheme; }
+            get => _selectedTheme;
             set
             {
-                if (this.selectedTheme != value)
-                {
-                    this.selectedTheme = value;
-                    OnPropertyChanged("SelectedTheme");
+                if (_selectedTheme == value)
+                    return;
 
-                    // and update the actual theme
-                    AppearanceManager.Current.ThemeSource = value.Source;
-                }
+                _selectedTheme = value;
+                OnPropertyChanged("SelectedTheme");
+
+                // and update the actual theme
+                AppearanceManager.Current.ThemeSource = value.Source;
             }
         }
 
         public string SelectedFontSize
         {
-            get { return this.selectedFontSize; }
+            get => _selectedFontSize;
             set
             {
-                if (this.selectedFontSize != value)
-                {
-                    this.selectedFontSize = value;
-                    OnPropertyChanged("SelectedFontSize");
+                if (_selectedFontSize == value)
+                    return;
 
-                    AppearanceManager.Current.FontSize = value == FontLarge ? FontSize.Large : FontSize.Small;
-                }
+                _selectedFontSize = value;
+                OnPropertyChanged("SelectedFontSize");
+
+                AppearanceManager.Current.FontSize = value == FontLarge ? FontSize.Large : FontSize.Small;
             }
         }
 
         public Color SelectedAccentColor
         {
-            get { return this.selectedAccentColor; }
+            get => _selectedAccentColor;
             set
             {
-                if (this.selectedAccentColor != value)
-                {
-                    this.selectedAccentColor = value;
-                    OnPropertyChanged("SelectedAccentColor");
+                if (_selectedAccentColor == value)
+                    return;
 
-                    AppearanceManager.Current.AccentColor = value;
-                }
+                _selectedAccentColor = value;
+                OnPropertyChanged("SelectedAccentColor");
+
+                AppearanceManager.Current.AccentColor = value;
             }
         }
     }
