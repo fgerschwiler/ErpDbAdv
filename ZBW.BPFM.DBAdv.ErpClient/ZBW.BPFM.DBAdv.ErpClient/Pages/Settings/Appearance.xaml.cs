@@ -1,5 +1,4 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ZBW.BPFM.DBAdv.ErpClient
+namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Appearance.xaml
     /// </summary>
-    public partial class MainWindow : ModernWindow
+    public partial class Appearance : UserControl
     {
-        public MainWindow()
+        public Appearance()
         {
             InitializeComponent();
+
+            // create and assign the appearance view model
+            this.DataContext = new AppearanceViewModel();
         }
     }
 }

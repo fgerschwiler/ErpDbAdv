@@ -9,7 +9,7 @@ using System.Windows;
 namespace ZBW.BPFM.DBAdv.ErpClient
 {
     /// <summary>
-    /// Interaktionslogik für "App.xaml"
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
