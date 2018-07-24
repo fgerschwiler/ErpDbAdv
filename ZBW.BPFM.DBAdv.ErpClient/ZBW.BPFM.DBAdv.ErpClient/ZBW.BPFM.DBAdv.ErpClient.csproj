@@ -38,7 +38,8 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.6.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FirstFloor.ModernUI.1.0.6.7\lib\net40\FirstFloor.ModernUI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -113,9 +114,6 @@
       <Project>{3AEB4A07-5B6B-4ECF-9ECB-905E1BCACAC9}</Project>
       <Name>ZBW.BPFM.DBAdv.DBAccess</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

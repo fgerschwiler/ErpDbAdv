@@ -18,7 +18,7 @@
                             <GridView>
                                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
                                 <GridViewColumn Header="Eingangsdatum" DisplayMemberBinding="{Binding Bestelldatum}"/>
-                                <GridViewColumn Header="Kunde" DisplayMemberBinding="{Binding kunde.person.Name}"/>
+                                <GridViewColumn Header="Kunde" DisplayMemberBinding="{Binding kunde.DisplayName}"/>
                                 <GridViewColumn Header="Positionen" DisplayMemberBinding="{Binding bestellposition.Count}"/>
                                 <GridViewColumn Header="Bemerkung" DisplayMemberBinding="{Binding Bemerkung}"/>
                                 <GridViewColumn Header="Kommission" DisplayMemberBinding="{Binding Kommission}"/>
