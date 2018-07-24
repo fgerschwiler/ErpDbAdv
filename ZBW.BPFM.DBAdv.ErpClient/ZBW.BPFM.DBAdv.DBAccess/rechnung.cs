@@ -17,8 +17,8 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Rechnung()
         {
-            this.Lieferschein = new HashSet<Lieferschein>();
-            this.zahlung = new HashSet<zahlung>();
+            this.lieferschein = new HashSet<Lieferschein>();
+            this.zahlung = new HashSet<Zahlung>();
         }
     
         public int Id { get; set; }
@@ -27,10 +27,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Bemerkung { get; set; }
         public Nullable<System.DateTime> Datum { get; set; }
     
-        public virtual Kunde Kunde { get; set; }
+        public virtual Kunde kunde { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lieferschein> Lieferschein { get; set; }
+        public virtual ICollection<Lieferschein> lieferschein { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<zahlung> zahlung { get; set; }
+        public virtual ICollection<Zahlung> zahlung { get; set; }
     }
 }

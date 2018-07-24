@@ -8,7 +8,11 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="TODO: add content" />
+                <Grid>
+                    <ListView MinHeight="300" ItemsSource="{Binding Path=Auftraege}">
+
+                    </ListView>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

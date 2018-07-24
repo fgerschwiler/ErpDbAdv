@@ -17,8 +17,8 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lagerposition()
         {
-            this.Bestellposition = new HashSet<Bestellposition>();
-            this.Lagerbuchung = new HashSet<Lagerbuchung>();
+            this.bestellposition = new HashSet<Bestellposition>();
+            this.lagerbuchung = new HashSet<Lagerbuchung>();
         }
     
         public int Id { get; set; }
@@ -28,11 +28,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public decimal Minmenge { get; set; }
         public System.Guid SsmaRowid { get; set; }
     
-        public virtual Artikel Artikel { get; set; }
+        public virtual Artikel artikel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bestellposition> Bestellposition { get; set; }
-        public virtual Lager Lager { get; set; }
+        public virtual ICollection<Bestellposition> bestellposition { get; set; }
+        public virtual Lager lager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerbuchung> Lagerbuchung { get; set; }
+        public virtual ICollection<Lagerbuchung> lagerbuchung { get; set; }
     }
 }

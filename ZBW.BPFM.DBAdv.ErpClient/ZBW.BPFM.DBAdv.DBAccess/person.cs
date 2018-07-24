@@ -17,8 +17,8 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
-            this.Kunde = new HashSet<Kunde>();
-            this.Mitarbeiter = new HashSet<Mitarbeiter>();
+            this.kunde = new HashSet<Kunde>();
+            this.mitarbeiter = new HashSet<Mitarbeiter>();
         }
     
         public int Id { get; set; }
@@ -29,10 +29,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Telefonnummer { get; set; }
         public string Mail { get; set; }
     
-        public virtual Adresse Adresse { get; set; }
+        public virtual Adresse adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kunde> Kunde { get; set; }
+        public virtual ICollection<Kunde> kunde { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mitarbeiter> Mitarbeiter { get; set; }
+        public virtual ICollection<Mitarbeiter> mitarbeiter { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ort()
         {
-            this.Adresse = new HashSet<Adresse>();
+            this.adresse = new HashSet<Adresse>();
         }
     
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public Nullable<int> FkOrtLand { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adresse> Adresse { get; set; }
-        public virtual land land { get; set; }
+        public virtual ICollection<Adresse> adresse { get; set; }
+        public virtual Land land { get; set; }
     }
 }

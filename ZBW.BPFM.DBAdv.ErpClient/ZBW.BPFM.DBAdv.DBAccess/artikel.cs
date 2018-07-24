@@ -17,10 +17,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Artikel()
         {
-            this.Bestellposition = new HashSet<Bestellposition>();
-            this.Kundenpreis = new HashSet<Kundenpreis>();
-            this.Lagerbuchung = new HashSet<Lagerbuchung>();
-            this.Lagerposition = new HashSet<Lagerposition>();
+            this.bestellposition = new HashSet<Bestellposition>();
+            this.kundenpreis = new HashSet<Kundenpreis>();
+            this.lagerbuchung = new HashSet<Lagerbuchung>();
+            this.lagerposition = new HashSet<Lagerposition>();
         }
     
         public int Id { get; set; }
@@ -31,14 +31,14 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public Nullable<int> FkArtikelMwstsatz { get; set; }
         public System.Guid SsmaRowid { get; set; }
     
-        public virtual mwstsatz mwstsatz { get; set; }
+        public virtual Mwstsatz mwstsatz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bestellposition> Bestellposition { get; set; }
+        public virtual ICollection<Bestellposition> bestellposition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kundenpreis> Kundenpreis { get; set; }
+        public virtual ICollection<Kundenpreis> kundenpreis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerbuchung> Lagerbuchung { get; set; }
+        public virtual ICollection<Lagerbuchung> lagerbuchung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerposition> Lagerposition { get; set; }
+        public virtual ICollection<Lagerposition> lagerposition { get; set; }
     }
 }

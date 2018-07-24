@@ -19,7 +19,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public int FkZahlungRechnung { get; set; }
         public decimal Betrag { get; set; }
     
-        public virtual Kunde Kunde { get; set; }
-        public virtual Rechnung Rechnung { get; set; }
+        public virtual Kunde kunde { get; set; }
+        public virtual Rechnung rechnung { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lieferschein()
         {
-            this.Lieferschein1 = new HashSet<Lieferschein>();
+            this.lieferschein1 = new HashSet<Lieferschein>();
         }
     
         public int Id { get; set; }
@@ -27,11 +27,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public int FkLieferscheinBestellung { get; set; }
         public int FkLieferscheinAdresse { get; set; }
     
-        public virtual Adresse Adresse { get; set; }
-        public virtual bestellung bestellung { get; set; }
+        public virtual Adresse adresse { get; set; }
+        public virtual Bestellung bestellung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lieferschein> Lieferschein1 { get; set; }
-        public virtual Lieferschein Lieferschein2 { get; set; }
-        public virtual Rechnung Rechnung { get; set; }
+        public virtual ICollection<Lieferschein> lieferschein1 { get; set; }
+        public virtual Lieferschein lieferschein2 { get; set; }
+        public virtual Rechnung rechnung { get; set; }
     }
 }

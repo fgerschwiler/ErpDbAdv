@@ -15,15 +15,15 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Mwstsatz
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public mwstsatz()
+        public Mwstsatz()
         {
-            this.Artikel = new HashSet<Artikel>();
+            this.artikel = new HashSet<Artikel>();
         }
     
         public int Id { get; set; }
         public decimal Prozentsatz { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Artikel> Artikel { get; set; }
+        public virtual ICollection<Artikel> artikel { get; set; }
     }
 }

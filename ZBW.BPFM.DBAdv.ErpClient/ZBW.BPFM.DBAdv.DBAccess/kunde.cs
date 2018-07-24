@@ -17,11 +17,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Kunde()
         {
-            this.bestellung = new HashSet<bestellung>();
-            this.Kundenpreis = new HashSet<Kundenpreis>();
-            this.Rechnung = new HashSet<Rechnung>();
-            this.zahlung = new HashSet<zahlung>();
-            this.Mitarbeiter = new HashSet<Mitarbeiter>();
+            this.bestellung = new HashSet<Bestellung>();
+            this.kundenpreis = new HashSet<Kundenpreis>();
+            this.rechnung = new HashSet<Rechnung>();
+            this.zahlung = new HashSet<Zahlung>();
+            this.mitarbeiter = new HashSet<Mitarbeiter>();
         }
     
         public int Id { get; set; }
@@ -30,15 +30,15 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public Nullable<int> Rabatt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bestellung> bestellung { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual ICollection<Bestellung> bestellung { get; set; }
+        public virtual Person person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kundenpreis> Kundenpreis { get; set; }
+        public virtual ICollection<Kundenpreis> kundenpreis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rechnung> Rechnung { get; set; }
+        public virtual ICollection<Rechnung> rechnung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<zahlung> zahlung { get; set; }
+        public virtual ICollection<Zahlung> zahlung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mitarbeiter> Mitarbeiter { get; set; }
+        public virtual ICollection<Mitarbeiter> mitarbeiter { get; set; }
     }
 }

@@ -17,13 +17,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Abteilung()
         {
-            this.Mitarbeiter = new HashSet<Mitarbeiter>();
+            this.mitarbeiter = new HashSet<Mitarbeiter>();
         }
     
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mitarbeiter> Mitarbeiter { get; set; }
+        public virtual ICollection<Mitarbeiter> mitarbeiter { get; set; }
     }
 }

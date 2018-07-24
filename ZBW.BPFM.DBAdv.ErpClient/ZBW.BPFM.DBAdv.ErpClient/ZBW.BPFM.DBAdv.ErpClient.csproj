@@ -70,6 +70,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Pages\AuftragViewModel.cs" />
     <Compile Include="Pages\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -99,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZBW.BPFM.DBAdv.DBAccess\ZBW.BPFM.DBAdv.DBAccess.csproj">
+      <Project>{3AEB4A07-5B6B-4ECF-9ECB-905E1BCACAC9}</Project>
+      <Name>ZBW.BPFM.DBAdv.DBAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,7 +15,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Lohnabrechnung
     {
         public int Id { get; set; }
-        public int FkLohnabRechnungMitarbeiter { get; set; }
+        public int FkLohnabrechnungMitarbeiter { get; set; }
         public System.DateTime Datum { get; set; }
         public Nullable<decimal> Sollstunden { get; set; }
         public Nullable<decimal> Iststunden { get; set; }
@@ -26,6 +26,6 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public decimal Stundenlohn { get; set; }
         public System.Guid SsmaRowid { get; set; }
     
-        public virtual Mitarbeiter Mitarbeiter { get; set; }
+        public virtual Mitarbeiter mitarbeiter { get; set; }
     }
 }

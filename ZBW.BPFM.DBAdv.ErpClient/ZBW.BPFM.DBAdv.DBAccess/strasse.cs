@@ -17,13 +17,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Strasse()
         {
-            this.Adresse = new HashSet<Adresse>();
+            this.adresse = new HashSet<Adresse>();
         }
     
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adresse> Adresse { get; set; }
+        public virtual ICollection<Adresse> adresse { get; set; }
     }
 }
