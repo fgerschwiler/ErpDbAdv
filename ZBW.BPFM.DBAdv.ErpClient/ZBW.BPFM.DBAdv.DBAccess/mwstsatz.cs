@@ -12,18 +12,18 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Mwstsatz
+    public partial class mwstsatz
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Mwstsatz()
+        public mwstsatz()
         {
-            this.artikel = new HashSet<Artikel>();
+            this.artikel = new HashSet<artikel>();
         }
     
         public int Id { get; set; }
         public decimal Prozentsatz { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Artikel> artikel { get; set; }
+        public virtual ICollection<artikel> artikel { get; set; }
     }
 }

@@ -12,26 +12,26 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Lieferschein
+    public partial class lieferschein
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lieferschein()
+        public lieferschein()
         {
-            this.lieferschein1 = new HashSet<Lieferschein>();
+            this.lieferschein1 = new HashSet<lieferschein>();
         }
     
         public int Id { get; set; }
         public System.DateTime Lieferdatum { get; set; }
-        public Nullable<int> FkLieferscheinRechnung { get; set; }
-        public Nullable<int> FkLieferscheinLieferschein { get; set; }
-        public int FkLieferscheinBestellung { get; set; }
-        public int FkLieferscheinAdresse { get; set; }
+        public Nullable<int> fk_Lieferschein_Rechnung { get; set; }
+        public Nullable<int> fk_Lieferschein_Lieferschein { get; set; }
+        public int fk_Lieferschein_Bestellung { get; set; }
+        public int fk_Lieferschein_Adresse { get; set; }
     
-        public virtual Adresse adresse { get; set; }
-        public virtual Bestellung bestellung { get; set; }
+        public virtual adresse adresse { get; set; }
+        public virtual bestellung bestellung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lieferschein> lieferschein1 { get; set; }
-        public virtual Lieferschein lieferschein2 { get; set; }
-        public virtual Rechnung rechnung { get; set; }
+        public virtual ICollection<lieferschein> lieferschein1 { get; set; }
+        public virtual lieferschein lieferschein2 { get; set; }
+        public virtual rechnung rechnung { get; set; }
     }
 }

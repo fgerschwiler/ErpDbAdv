@@ -12,18 +12,18 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Abteilung
+    public partial class abteilung
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Abteilung()
+        public abteilung()
         {
-            this.mitarbeiter = new HashSet<Mitarbeiter>();
+            this.mitarbeiter = new HashSet<mitarbeiter>();
         }
     
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mitarbeiter> mitarbeiter { get; set; }
+        public virtual ICollection<mitarbeiter> mitarbeiter { get; set; }
     }
 }

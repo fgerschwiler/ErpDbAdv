@@ -12,25 +12,25 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Rechnung
+    public partial class rechnung
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rechnung()
+        public rechnung()
         {
-            this.lieferschein = new HashSet<Lieferschein>();
-            this.zahlung = new HashSet<Zahlung>();
+            this.lieferschein = new HashSet<lieferschein>();
+            this.zahlung = new HashSet<zahlung>();
         }
     
         public int Id { get; set; }
-        public int FkRechnungKunde { get; set; }
+        public int fk_Rechnung_Kunde { get; set; }
         public decimal Betrag { get; set; }
         public string Bemerkung { get; set; }
         public Nullable<System.DateTime> Datum { get; set; }
     
-        public virtual Kunde kunde { get; set; }
+        public virtual kunde kunde { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lieferschein> lieferschein { get; set; }
+        public virtual ICollection<lieferschein> lieferschein { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Zahlung> zahlung { get; set; }
+        public virtual ICollection<zahlung> zahlung { get; set; }
     }
 }

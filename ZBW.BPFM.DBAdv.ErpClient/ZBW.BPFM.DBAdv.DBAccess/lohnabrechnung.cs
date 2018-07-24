@@ -12,20 +12,20 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Lohnabrechnung
+    public partial class lohnabrechnung
     {
         public int Id { get; set; }
-        public int FkLohnabrechnungMitarbeiter { get; set; }
+        public int fk_Lohnabrechnung_Mitarbeiter { get; set; }
         public System.DateTime Datum { get; set; }
-        public Nullable<decimal> Sollstunden { get; set; }
-        public Nullable<decimal> Iststunden { get; set; }
-        public Nullable<decimal> Ferienbezug { get; set; }
-        public Nullable<decimal> Krankheitstunden { get; set; }
-        public Nullable<decimal> Unbezahltstunden { get; set; }
-        public Nullable<decimal> Eoersatzberechtigtestunden { get; set; }
+        public Nullable<decimal> SollStunden { get; set; }
+        public Nullable<decimal> IstStunden { get; set; }
+        public Nullable<decimal> FerienBezug { get; set; }
+        public Nullable<decimal> KrankheitStunden { get; set; }
+        public Nullable<decimal> UnbezahltStunden { get; set; }
+        public Nullable<decimal> EOErsatzberechtigteStunden { get; set; }
         public decimal Stundenlohn { get; set; }
-        public System.Guid SsmaRowid { get; set; }
+        public System.Guid ssma_rowid { get; set; }
     
-        public virtual Mitarbeiter mitarbeiter { get; set; }
+        public virtual mitarbeiter mitarbeiter { get; set; }
     }
 }

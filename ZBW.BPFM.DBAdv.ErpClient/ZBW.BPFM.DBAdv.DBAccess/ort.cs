@@ -12,21 +12,21 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Ort
+    public partial class ort
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ort()
+        public ort()
         {
-            this.adresse = new HashSet<Adresse>();
+            this.adresse = new HashSet<adresse>();
         }
     
         public int Id { get; set; }
-        public int Plz { get; set; }
+        public int PLZ { get; set; }
         public string Ort1 { get; set; }
-        public Nullable<int> FkOrtLand { get; set; }
+        public Nullable<int> fk_Ort_Land { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adresse> adresse { get; set; }
-        public virtual Land land { get; set; }
+        public virtual ICollection<adresse> adresse { get; set; }
+        public virtual land land { get; set; }
     }
 }

@@ -7,11 +7,9 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
     /// </summary>
     public partial class Home : UserControl
     {
-        private readonly AuftragViewModel _viewModel = new AuftragViewModel();
         public Home()
         {
             InitializeComponent();
-            DataContext = _viewModel;
         }
     }
 }

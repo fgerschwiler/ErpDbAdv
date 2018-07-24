@@ -12,18 +12,18 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Strasse
+    public partial class strasse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Strasse()
+        public strasse()
         {
-            this.adresse = new HashSet<Adresse>();
+            this.adresse = new HashSet<adresse>();
         }
     
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adresse> adresse { get; set; }
+        public virtual ICollection<adresse> adresse { get; set; }
     }
 }

@@ -3,14 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <local:AuftragViewModel></local:AuftragViewModel>
+    </UserControl.DataContext>
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <Grid>
                     <ListView MinHeight="300" ItemsSource="{Binding Path=Auftraege}">
-
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Eingangsdatum" DisplayMemberBinding="{Binding Bestelldatum}"/>
+                                <GridViewColumn Header="Kunde" DisplayMemberBinding="{Binding kunde.person.Name}"/>
+                                <GridViewColumn Header="Positionen" DisplayMemberBinding="{Binding bestellposition.Count}"/>
+                                <GridViewColumn Header="Bemerkung" DisplayMemberBinding="{Binding Bemerkung}"/>
+                                <GridViewColumn Header="Kommission" DisplayMemberBinding="{Binding Kommission}"/>
+                            </GridView>
+                        </ListView.View>
                     </ListView>
                 </Grid>
             </StackPanel>

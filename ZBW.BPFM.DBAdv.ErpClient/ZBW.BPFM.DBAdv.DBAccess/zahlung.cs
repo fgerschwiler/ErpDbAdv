@@ -12,14 +12,14 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Zahlung
+    public partial class zahlung
     {
         public int Id { get; set; }
-        public int FkZahlungKunde { get; set; }
-        public int FkZahlungRechnung { get; set; }
+        public int fk_Zahlung_Kunde { get; set; }
+        public int fk_Zahlung_Rechnung { get; set; }
         public decimal Betrag { get; set; }
     
-        public virtual Kunde kunde { get; set; }
-        public virtual Rechnung rechnung { get; set; }
+        public virtual kunde kunde { get; set; }
+        public virtual rechnung rechnung { get; set; }
     }
 }

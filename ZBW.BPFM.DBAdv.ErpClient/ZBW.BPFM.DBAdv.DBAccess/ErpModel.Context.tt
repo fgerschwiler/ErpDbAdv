@@ -181,8 +181,8 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             Accessibility.ForProperty(edmProperty),
-            PascalCase(_typeMapper.GetTypeName(edmProperty.TypeUsage)),
-			_code.Escape(PascalCase(edmProperty)),
+            _typeMapper.GetTypeName(edmProperty.TypeUsage),
+            _code.Escape(edmProperty),
             _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
             _code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
     }
@@ -195,7 +195,7 @@ public class CodeStringGenerator
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)),
             navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
-            _code.Escape(PascalCase(navProp)),
+            _code.Escape(navProp),
             _code.SpaceAfter(Accessibility.ForGetter(navProp)),
             _code.SpaceAfter(Accessibility.ForSetter(navProp)));
     }
@@ -212,7 +212,7 @@ public class CodeStringGenerator
             "{0} {1}partial class {2}{3}",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
-			_code.Escape(PascalCase(entity)),
+            _code.Escape(entity),
             _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));
     }
     
@@ -310,8 +310,8 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} virtual DbSet<{1}> {2} {{ get; set; }}",
             Accessibility.ForReadOnlyProperty(entitySet),
-            PascalCase(_typeMapper.GetTypeName(entitySet.ElementType)),
-            PascalCase(_code.Escape(entitySet)));
+            _typeMapper.GetTypeName(entitySet.ElementType),
+            _code.Escape(entitySet));
     }
 
     public string DbSetInitializer(EntitySet entitySet)
@@ -335,58 +335,6 @@ public class CodeStringGenerator
                 inHeader ? "" : Environment.NewLine)
             : "";
     }
-
-	public string PascalCase(StructuralType type)
-	{
-		if (type == null)
-		{
-			return null;
-		}
-
-		return PascalCase(type.Name);
-	}
-
-	public string PascalCase(EdmMember member)
-	{
-		if (member == null)
-		{
-			return null;
-		}
-
-		return PascalCase(member.Name);
-	}
-
-	private string PascalCase(string name)
-	{
-		name = name.ToLowerInvariant();
-
-		string result = name;
-		bool upperCase = false;
-
-		result = string.Empty;
-		for (int i = 0; i < name.Length; i++)
-		{
-			if (name[i] == ' ' || name[i] == '_')
-			{
-				upperCase = true;
-			}
-			else
-			{
-				if (i == 0 || upperCase)
-				{
-					result += name[i].ToString().ToUpperInvariant();
-					upperCase = false;
-				}
-				else
-				{
-					result += name[i];
-				}
-			}
-		}
-
-		return result;
-	}
- 
 }
 
 public class TypeMapper

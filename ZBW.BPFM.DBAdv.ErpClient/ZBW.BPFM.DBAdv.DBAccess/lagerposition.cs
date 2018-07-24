@@ -12,27 +12,27 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Lagerposition
+    public partial class lagerposition
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lagerposition()
+        public lagerposition()
         {
-            this.bestellposition = new HashSet<Bestellposition>();
-            this.lagerbuchung = new HashSet<Lagerbuchung>();
+            this.bestellposition = new HashSet<bestellposition>();
+            this.lagerbuchung = new HashSet<lagerbuchung>();
         }
     
         public int Id { get; set; }
-        public int FkLagerpositionArtikel { get; set; }
-        public int FkLagerpositionLager { get; set; }
+        public int fk_LagerPosition_Artikel { get; set; }
+        public int fk_LagerPosition_Lager { get; set; }
         public Nullable<decimal> Menge { get; set; }
-        public decimal Minmenge { get; set; }
-        public System.Guid SsmaRowid { get; set; }
+        public decimal MinMenge { get; set; }
+        public System.Guid ssma_rowid { get; set; }
     
-        public virtual Artikel artikel { get; set; }
+        public virtual artikel artikel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bestellposition> bestellposition { get; set; }
-        public virtual Lager lager { get; set; }
+        public virtual ICollection<bestellposition> bestellposition { get; set; }
+        public virtual lager lager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerbuchung> lagerbuchung { get; set; }
+        public virtual ICollection<lagerbuchung> lagerbuchung { get; set; }
     }
 }

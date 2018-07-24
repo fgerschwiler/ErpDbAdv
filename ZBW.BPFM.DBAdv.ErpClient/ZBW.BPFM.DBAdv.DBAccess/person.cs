@@ -12,27 +12,27 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public person()
         {
-            this.kunde = new HashSet<Kunde>();
-            this.mitarbeiter = new HashSet<Mitarbeiter>();
+            this.kunde = new HashSet<kunde>();
+            this.mitarbeiter = new HashSet<mitarbeiter>();
         }
     
         public int Id { get; set; }
         public string Anrede { get; set; }
         public string Name { get; set; }
         public string Vorname { get; set; }
-        public int FkPersonAdresse { get; set; }
+        public int fk_Person_Adresse { get; set; }
         public string Telefonnummer { get; set; }
         public string Mail { get; set; }
     
-        public virtual Adresse adresse { get; set; }
+        public virtual adresse adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kunde> kunde { get; set; }
+        public virtual ICollection<kunde> kunde { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mitarbeiter> mitarbeiter { get; set; }
+        public virtual ICollection<mitarbeiter> mitarbeiter { get; set; }
     }
 }

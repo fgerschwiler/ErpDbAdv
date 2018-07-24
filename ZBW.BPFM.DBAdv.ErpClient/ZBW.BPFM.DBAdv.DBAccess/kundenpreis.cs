@@ -12,25 +12,25 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Kundenpreis
+    public partial class kundenpreis
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Kundenpreis()
+        public kundenpreis()
         {
-            this.bestellposition = new HashSet<Bestellposition>();
+            this.bestellposition = new HashSet<bestellposition>();
         }
     
         public int Id { get; set; }
-        public int FkKundenpreisArtikel { get; set; }
-        public int FkKundenpreisKunde { get; set; }
+        public int fk_KundenPreis_Artikel { get; set; }
+        public int fk_KundenPreis_Kunde { get; set; }
         public decimal Verkaufspreis { get; set; }
-        public Nullable<System.DateTime> Gueltigbis { get; set; }
+        public Nullable<System.DateTime> GueltigBis { get; set; }
         public string Waehrung { get; set; }
         public Nullable<int> Rabatt { get; set; }
     
-        public virtual Artikel artikel { get; set; }
+        public virtual artikel artikel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bestellposition> bestellposition { get; set; }
-        public virtual Kunde kunde { get; set; }
+        public virtual ICollection<bestellposition> bestellposition { get; set; }
+        public virtual kunde kunde { get; set; }
     }
 }

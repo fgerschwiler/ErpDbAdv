@@ -20,7 +20,7 @@ WriteHeader(codeStringGenerator, fileManager);
 
 foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
 {
-    fileManager.StartNewFile(typeMapper.PascalCase(entity.Name + ".cs"));
+    fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
@@ -35,7 +35,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     {
 #>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public <#=typeMapper.PascalCase(code.Escape(entity))#>()
+    public <#=code.Escape(entity)#>()
     {
 <#
         foreach (var edmProperty in propertiesWithDefaultValues)
@@ -115,7 +115,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 
 foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollection))
 {
-    fileManager.StartNewFile(typeMapper.PascalCase(complex.Name + ".cs"));
+    fileManager.StartNewFile(complex.Name + ".cs");
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
@@ -181,7 +181,7 @@ foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollectio
 
 foreach (var enumType in typeMapper.GetEnumItemsToGenerate(itemCollection))
 {
-    fileManager.StartNewFile(typeMapper.PascalCase(enumType.Name + ".cs"));
+    fileManager.StartNewFile(enumType.Name + ".cs");
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
@@ -288,7 +288,7 @@ public class CodeStringGenerator
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             Accessibility.ForProperty(edmProperty),
             _typeMapper.GetTypeName(edmProperty.TypeUsage),
-            _code.Escape(PascalCase(edmProperty)),
+            _code.Escape(edmProperty),
             _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
             _code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
     }
@@ -318,7 +318,7 @@ public class CodeStringGenerator
             "{0} {1}partial class {2}{3}",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
-            _code.Escape(PascalCase(entity)),
+            _code.Escape(entity),
             _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));
     }
     
@@ -432,57 +432,6 @@ public class CodeStringGenerator
                 inHeader ? "" : Environment.NewLine)
             : "";
     }
-
-		public string PascalCase(StructuralType type)
-	{
-		if (type == null)
-		{
-			return null;
-		}
-
-		return PascalCase(type.Name);
-	}
-
-	public string PascalCase(EdmMember member)
-	{
-		if (member == null)
-		{
-			return null;
-		}
-
-		return PascalCase(member.Name);
-	}
-
-	public string PascalCase(string name)
-	{
-		name = name.ToLowerInvariant();
-
-		string result = name;
-		bool upperCase = false;
-
-		result = string.Empty;
-		for (int i = 0; i < name.Length; i++)
-		{
-			if (name[i] == ' ' || name[i] == '_')
-			{
-				upperCase = true;
-			}
-			else
-			{
-				if (i == 0 || upperCase)
-				{
-					result += name[i].ToString().ToUpperInvariant();
-					upperCase = false;
-				}
-				else
-				{
-					result += name[i];
-				}
-			}
-		}
-
-		return result;
-	}
 }
 
 public class TypeMapper
@@ -508,57 +457,7 @@ public class TypeMapper
     {
         return typeName.Replace("System.Data.Spatial.", "System.Data.Entity.Spatial.");
     }
-	
-			public string PascalCase(StructuralType type)
-	{
-		if (type == null)
-		{
-			return null;
-		}
 
-		return PascalCase(type.Name);
-	}
-
-	public string PascalCase(EdmMember member)
-	{
-		if (member == null)
-		{
-			return null;
-		}
-
-		return PascalCase(member.Name);
-	}
-
-	public string PascalCase(string name)
-	{
-		name = name.ToLowerInvariant();
-
-		string result = name;
-		bool upperCase = false;
-
-		result = string.Empty;
-		for (int i = 0; i < name.Length; i++)
-		{
-			if (name[i] == ' ' || name[i] == '_')
-			{
-				upperCase = true;
-			}
-			else
-			{
-				if (i == 0 || upperCase)
-				{
-					result += name[i].ToString().ToUpperInvariant();
-					upperCase = false;
-				}
-				else
-				{
-					result += name[i];
-				}
-			}
-		}
-
-		return result;
-	}
     public string GetTypeName(TypeUsage typeUsage)
     {
         return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace: null);
@@ -597,8 +496,8 @@ public class TypeMapper
                                 .Select(p => (string)p.Value)
                                 .FirstOrDefault())
             ?? (modelNamespace != null && edmType.NamespaceName != modelNamespace ?
-                _code.CreateFullName(_code.EscapeNamespace(edmType.NamespaceName), PascalCase(_code.Escape(edmType))) :
-                PascalCase(_code.Escape(edmType)));
+                _code.CreateFullName(_code.EscapeNamespace(edmType.NamespaceName), _code.Escape(edmType)) :
+                _code.Escape(edmType));
 
         if (edmType is StructuralType)
         {

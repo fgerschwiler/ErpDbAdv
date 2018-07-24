@@ -12,33 +12,33 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Mitarbeiter
+    public partial class mitarbeiter
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Mitarbeiter()
+        public mitarbeiter()
         {
-            this.lohnabrechnung = new HashSet<Lohnabrechnung>();
-            this.kunde = new HashSet<Kunde>();
+            this.lohnabrechnung = new HashSet<lohnabrechnung>();
+            this.kunde = new HashSet<kunde>();
         }
     
         public int Id { get; set; }
-        public int FkMitarbeiterPerson { get; set; }
-        public int FkMitarbeiterAbteilung { get; set; }
+        public int fk_Mitarbeiter_Person { get; set; }
+        public int fk_Mitarbeiter_Abteilung { get; set; }
         public decimal Salaer { get; set; }
         public int Arbeitspensum { get; set; }
-        public decimal Feriensaldo { get; set; }
-        public Nullable<decimal> Ueberstundensaldo { get; set; }
+        public decimal FerienSaldo { get; set; }
+        public Nullable<decimal> UeberstundenSaldo { get; set; }
         public string Zivilstand { get; set; }
-        public Nullable<int> Anzahlkinder { get; set; }
+        public Nullable<int> AnzahlKinder { get; set; }
         public string Konfession { get; set; }
-        public string Ahvnr { get; set; }
-        public System.Guid SsmaRowid { get; set; }
+        public string AhVNr { get; set; }
+        public System.Guid ssma_rowid { get; set; }
     
-        public virtual Abteilung abteilung { get; set; }
+        public virtual abteilung abteilung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lohnabrechnung> lohnabrechnung { get; set; }
-        public virtual Person person { get; set; }
+        public virtual ICollection<lohnabrechnung> lohnabrechnung { get; set; }
+        public virtual person person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kunde> kunde { get; set; }
+        public virtual ICollection<kunde> kunde { get; set; }
     }
 }

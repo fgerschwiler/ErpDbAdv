@@ -12,15 +12,15 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Lagerbuchung
+    public partial class lagerbuchung
     {
         public int Id { get; set; }
         public decimal Menge { get; set; }
         public System.DateTime Buchungsdatum { get; set; }
-        public int FkLagerbuchungLagerposition { get; set; }
-        public int FkLagerbuchungArtikel { get; set; }
+        public int fk_Lagerbuchung_Lagerposition { get; set; }
+        public int fk_Lagerbuchung_Artikel { get; set; }
     
-        public virtual Artikel artikel { get; set; }
-        public virtual Lagerposition lagerposition { get; set; }
+        public virtual artikel artikel { get; set; }
+        public virtual lagerposition lagerposition { get; set; }
     }
 }

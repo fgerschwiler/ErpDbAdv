@@ -12,33 +12,33 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Artikel
+    public partial class artikel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Artikel()
+        public artikel()
         {
-            this.bestellposition = new HashSet<Bestellposition>();
-            this.kundenpreis = new HashSet<Kundenpreis>();
-            this.lagerbuchung = new HashSet<Lagerbuchung>();
-            this.lagerposition = new HashSet<Lagerposition>();
+            this.bestellposition = new HashSet<bestellposition>();
+            this.kundenpreis = new HashSet<kundenpreis>();
+            this.lagerbuchung = new HashSet<lagerbuchung>();
+            this.lagerposition = new HashSet<lagerposition>();
         }
     
         public int Id { get; set; }
-        public string Artikelnr { get; set; }
+        public string ArtikelNr { get; set; }
         public string Bezeichnung { get; set; }
-        public decimal Ep { get; set; }
-        public decimal Bruttovp { get; set; }
-        public Nullable<int> FkArtikelMwstsatz { get; set; }
-        public System.Guid SsmaRowid { get; set; }
+        public decimal EP { get; set; }
+        public decimal BruttoVP { get; set; }
+        public Nullable<int> fk_Artikel_MwStSatz { get; set; }
+        public System.Guid ssma_rowid { get; set; }
     
-        public virtual Mwstsatz mwstsatz { get; set; }
+        public virtual mwstsatz mwstsatz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bestellposition> bestellposition { get; set; }
+        public virtual ICollection<bestellposition> bestellposition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kundenpreis> kundenpreis { get; set; }
+        public virtual ICollection<kundenpreis> kundenpreis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerbuchung> lagerbuchung { get; set; }
+        public virtual ICollection<lagerbuchung> lagerbuchung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lagerposition> lagerposition { get; set; }
+        public virtual ICollection<lagerposition> lagerposition { get; set; }
     }
 }

@@ -12,29 +12,29 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Adresse
+    public partial class adresse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Adresse()
+        public adresse()
         {
-            this.lager = new HashSet<Lager>();
-            this.lieferschein = new HashSet<Lieferschein>();
-            this.person = new HashSet<Person>();
+            this.lager = new HashSet<lager>();
+            this.lieferschein = new HashSet<lieferschein>();
+            this.person = new HashSet<person>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> FkAdresseStrasse { get; set; }
+        public Nullable<int> fk_Adresse_Strasse { get; set; }
         public string Postfach { get; set; }
         public string Hausnummer { get; set; }
-        public int FkAdresseOrt { get; set; }
+        public int fk_Adresse_Ort { get; set; }
     
-        public virtual Ort ort { get; set; }
-        public virtual Strasse strasse { get; set; }
+        public virtual ort ort { get; set; }
+        public virtual strasse strasse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lager> lager { get; set; }
+        public virtual ICollection<lager> lager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lieferschein> lieferschein { get; set; }
+        public virtual ICollection<lieferschein> lieferschein { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person> person { get; set; }
+        public virtual ICollection<person> person { get; set; }
     }
 }

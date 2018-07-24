@@ -12,13 +12,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Audit
+    public partial class audit
     {
         public int Id { get; set; }
-        public string Modquery { get; set; }
-        public string Modtable { get; set; }
-        public string Modkind { get; set; }
-        public string Moduser { get; set; }
-        public System.DateTime Modtime { get; set; }
+        public string ModQuery { get; set; }
+        public string ModTable { get; set; }
+        public string ModKind { get; set; }
+        public string ModUser { get; set; }
+        public System.DateTime ModTime { get; set; }
     }
 }

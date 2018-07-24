@@ -12,19 +12,19 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Bestellposition
+    public partial class bestellposition
     {
         public int Id { get; set; }
-        public int FkBestellpositionArtikel { get; set; }
+        public int fk_Bestellposition_Artikel { get; set; }
         public decimal Menge { get; set; }
-        public int FkBestellpositionLagerposition { get; set; }
-        public Nullable<int> FkBestellpositionKundenpreis { get; set; }
+        public int fk_Bestellposition_LagerPosition { get; set; }
+        public Nullable<int> fk_Bestellposition_KundenPreis { get; set; }
         public string Notiz { get; set; }
-        public Nullable<int> FkBestellpositionBestellung { get; set; }
+        public Nullable<int> fk_Bestellposition_Bestellung { get; set; }
     
-        public virtual Artikel artikel { get; set; }
-        public virtual Bestellung bestellung { get; set; }
-        public virtual Kundenpreis kundenpreis { get; set; }
-        public virtual Lagerposition lagerposition { get; set; }
+        public virtual artikel artikel { get; set; }
+        public virtual bestellung bestellung { get; set; }
+        public virtual kundenpreis kundenpreis { get; set; }
+        public virtual lagerposition lagerposition { get; set; }
     }
 }
