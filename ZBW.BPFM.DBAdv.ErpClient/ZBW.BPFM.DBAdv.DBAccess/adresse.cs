@@ -15,11 +15,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Adresse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public adresse()
+        public Adresse()
         {
-            this.lager = new HashSet<lager>();
-            this.lieferschein = new HashSet<lieferschein>();
-            this.person = new HashSet<person>();
+            this.Lager = new HashSet<Lager>();
+            this.Lieferschein = new HashSet<Lieferschein>();
+            this.Person = new HashSet<Person>();
         }
     
         public int Id { get; set; }
@@ -28,13 +28,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Hausnummer { get; set; }
         public int FkAdresseOrt { get; set; }
     
-        public virtual ort ort { get; set; }
-        public virtual strasse strasse { get; set; }
+        public virtual Ort Ort { get; set; }
+        public virtual Strasse Strasse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lager> lager { get; set; }
+        public virtual ICollection<Lager> Lager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lieferschein> lieferschein { get; set; }
+        public virtual ICollection<Lieferschein> Lieferschein { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<person> person { get; set; }
+        public virtual ICollection<Person> Person { get; set; }
     }
 }

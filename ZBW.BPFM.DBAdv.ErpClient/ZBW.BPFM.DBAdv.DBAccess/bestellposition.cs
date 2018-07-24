@@ -22,9 +22,9 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Notiz { get; set; }
         public Nullable<int> FkBestellpositionBestellung { get; set; }
     
-        public virtual artikel artikel { get; set; }
+        public virtual Artikel Artikel { get; set; }
         public virtual bestellung bestellung { get; set; }
-        public virtual kundenpreis kundenpreis { get; set; }
-        public virtual lagerposition lagerposition { get; set; }
+        public virtual Kundenpreis Kundenpreis { get; set; }
+        public virtual Lagerposition Lagerposition { get; set; }
     }
 }

@@ -181,7 +181,7 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             Accessibility.ForProperty(edmProperty),
-            _typeMapper.GetTypeName(edmProperty.TypeUsage),
+            PascalCase(_typeMapper.GetTypeName(edmProperty.TypeUsage)),
 			_code.Escape(PascalCase(edmProperty)),
             _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
             _code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
@@ -195,7 +195,7 @@ public class CodeStringGenerator
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)),
             navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
-            _code.Escape(navProp),
+            _code.Escape(PascalCase(navProp)),
             _code.SpaceAfter(Accessibility.ForGetter(navProp)),
             _code.SpaceAfter(Accessibility.ForSetter(navProp)));
     }
@@ -310,8 +310,8 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} virtual DbSet<{1}> {2} {{ get; set; }}",
             Accessibility.ForReadOnlyProperty(entitySet),
-            _typeMapper.GetTypeName(entitySet.ElementType),
-            _code.Escape(entitySet));
+            PascalCase(_typeMapper.GetTypeName(entitySet.ElementType)),
+            PascalCase(_code.Escape(entitySet)));
     }
 
     public string DbSetInitializer(EntitySet entitySet)

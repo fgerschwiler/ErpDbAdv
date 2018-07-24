@@ -17,13 +17,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public mwstsatz()
         {
-            this.artikel = new HashSet<artikel>();
+            this.Artikel = new HashSet<Artikel>();
         }
     
         public int Id { get; set; }
         public decimal Prozentsatz { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<artikel> artikel { get; set; }
+        public virtual ICollection<Artikel> Artikel { get; set; }
     }
 }

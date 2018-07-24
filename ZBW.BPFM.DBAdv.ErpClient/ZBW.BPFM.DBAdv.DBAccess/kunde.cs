@@ -15,13 +15,13 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Kunde
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public kunde()
+        public Kunde()
         {
             this.bestellung = new HashSet<bestellung>();
-            this.kundenpreis = new HashSet<kundenpreis>();
-            this.rechnung = new HashSet<rechnung>();
+            this.Kundenpreis = new HashSet<Kundenpreis>();
+            this.Rechnung = new HashSet<Rechnung>();
             this.zahlung = new HashSet<zahlung>();
-            this.mitarbeiter = new HashSet<mitarbeiter>();
+            this.Mitarbeiter = new HashSet<Mitarbeiter>();
         }
     
         public int Id { get; set; }
@@ -31,14 +31,14 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bestellung> bestellung { get; set; }
-        public virtual person person { get; set; }
+        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<kundenpreis> kundenpreis { get; set; }
+        public virtual ICollection<Kundenpreis> Kundenpreis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rechnung> rechnung { get; set; }
+        public virtual ICollection<Rechnung> Rechnung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<zahlung> zahlung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mitarbeiter> mitarbeiter { get; set; }
+        public virtual ICollection<Mitarbeiter> Mitarbeiter { get; set; }
     }
 }

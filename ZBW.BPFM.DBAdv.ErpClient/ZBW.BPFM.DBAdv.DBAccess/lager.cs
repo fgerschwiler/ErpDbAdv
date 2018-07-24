@@ -15,10 +15,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Lager
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public lager()
+        public Lager()
         {
-            this.lager1 = new HashSet<lager>();
-            this.lagerposition = new HashSet<lagerposition>();
+            this.Lager1 = new HashSet<Lager>();
+            this.Lagerposition = new HashSet<Lagerposition>();
         }
     
         public int Id { get; set; }
@@ -26,11 +26,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public int FkLagerAdresse { get; set; }
         public Nullable<int> FkLagerLager { get; set; }
     
-        public virtual adresse adresse { get; set; }
+        public virtual Adresse Adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lager> lager1 { get; set; }
-        public virtual lager lager2 { get; set; }
+        public virtual ICollection<Lager> Lager1 { get; set; }
+        public virtual Lager Lager2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lagerposition> lagerposition { get; set; }
+        public virtual ICollection<Lagerposition> Lagerposition { get; set; }
     }
 }

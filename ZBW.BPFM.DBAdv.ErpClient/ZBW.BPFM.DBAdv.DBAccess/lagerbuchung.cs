@@ -20,7 +20,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public int FkLagerbuchungLagerposition { get; set; }
         public int FkLagerbuchungArtikel { get; set; }
     
-        public virtual artikel artikel { get; set; }
-        public virtual lagerposition lagerposition { get; set; }
+        public virtual Artikel Artikel { get; set; }
+        public virtual Lagerposition Lagerposition { get; set; }
     }
 }

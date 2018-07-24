@@ -25,26 +25,26 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<abteilung> abteilung { get; set; }
-        public virtual DbSet<adresse> adresse { get; set; }
-        public virtual DbSet<artikel> artikel { get; set; }
-        public virtual DbSet<audit> audit { get; set; }
-        public virtual DbSet<bestellposition> bestellposition { get; set; }
-        public virtual DbSet<bestellung> bestellung { get; set; }
-        public virtual DbSet<kunde> kunde { get; set; }
-        public virtual DbSet<kundenpreis> kundenpreis { get; set; }
-        public virtual DbSet<lager> lager { get; set; }
-        public virtual DbSet<lagerbuchung> lagerbuchung { get; set; }
-        public virtual DbSet<lagerposition> lagerposition { get; set; }
-        public virtual DbSet<land> land { get; set; }
-        public virtual DbSet<lieferschein> lieferschein { get; set; }
-        public virtual DbSet<lohnabrechnung> lohnabrechnung { get; set; }
-        public virtual DbSet<mitarbeiter> mitarbeiter { get; set; }
-        public virtual DbSet<mwstsatz> mwstsatz { get; set; }
-        public virtual DbSet<ort> ort { get; set; }
-        public virtual DbSet<person> person { get; set; }
-        public virtual DbSet<rechnung> rechnung { get; set; }
-        public virtual DbSet<strasse> strasse { get; set; }
-        public virtual DbSet<zahlung> zahlung { get; set; }
+        public virtual DbSet<Abteilung> Abteilung { get; set; }
+        public virtual DbSet<Adresse> Adresse { get; set; }
+        public virtual DbSet<Artikel> Artikel { get; set; }
+        public virtual DbSet<Audit> Audit { get; set; }
+        public virtual DbSet<Bestellposition> Bestellposition { get; set; }
+        public virtual DbSet<Bestellung> Bestellung { get; set; }
+        public virtual DbSet<Kunde> Kunde { get; set; }
+        public virtual DbSet<Kundenpreis> Kundenpreis { get; set; }
+        public virtual DbSet<Lager> Lager { get; set; }
+        public virtual DbSet<Lagerbuchung> Lagerbuchung { get; set; }
+        public virtual DbSet<Lagerposition> Lagerposition { get; set; }
+        public virtual DbSet<Land> Land { get; set; }
+        public virtual DbSet<Lieferschein> Lieferschein { get; set; }
+        public virtual DbSet<Lohnabrechnung> Lohnabrechnung { get; set; }
+        public virtual DbSet<Mitarbeiter> Mitarbeiter { get; set; }
+        public virtual DbSet<Mwstsatz> Mwstsatz { get; set; }
+        public virtual DbSet<Ort> Ort { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<Rechnung> Rechnung { get; set; }
+        public virtual DbSet<Strasse> Strasse { get; set; }
+        public virtual DbSet<Zahlung> Zahlung { get; set; }
     }
 }

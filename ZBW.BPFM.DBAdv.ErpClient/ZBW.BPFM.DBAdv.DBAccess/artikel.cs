@@ -15,12 +15,12 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Artikel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public artikel()
+        public Artikel()
         {
-            this.bestellposition = new HashSet<bestellposition>();
-            this.kundenpreis = new HashSet<kundenpreis>();
-            this.lagerbuchung = new HashSet<lagerbuchung>();
-            this.lagerposition = new HashSet<lagerposition>();
+            this.Bestellposition = new HashSet<Bestellposition>();
+            this.Kundenpreis = new HashSet<Kundenpreis>();
+            this.Lagerbuchung = new HashSet<Lagerbuchung>();
+            this.Lagerposition = new HashSet<Lagerposition>();
         }
     
         public int Id { get; set; }
@@ -33,12 +33,12 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     
         public virtual mwstsatz mwstsatz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bestellposition> bestellposition { get; set; }
+        public virtual ICollection<Bestellposition> Bestellposition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<kundenpreis> kundenpreis { get; set; }
+        public virtual ICollection<Kundenpreis> Kundenpreis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lagerbuchung> lagerbuchung { get; set; }
+        public virtual ICollection<Lagerbuchung> Lagerbuchung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lagerposition> lagerposition { get; set; }
+        public virtual ICollection<Lagerposition> Lagerposition { get; set; }
     }
 }

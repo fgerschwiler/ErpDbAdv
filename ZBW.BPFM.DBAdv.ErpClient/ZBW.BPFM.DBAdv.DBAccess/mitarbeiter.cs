@@ -15,10 +15,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Mitarbeiter
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public mitarbeiter()
+        public Mitarbeiter()
         {
-            this.lohnabrechnung = new HashSet<lohnabrechnung>();
-            this.kunde = new HashSet<kunde>();
+            this.lohnabRechnung = new HashSet<lohnabRechnung>();
+            this.Kunde = new HashSet<Kunde>();
         }
     
         public int Id { get; set; }
@@ -34,11 +34,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Ahvnr { get; set; }
         public System.Guid SsmaRowid { get; set; }
     
-        public virtual abteilung abteilung { get; set; }
+        public virtual Abteilung Abteilung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lohnabrechnung> lohnabrechnung { get; set; }
-        public virtual person person { get; set; }
+        public virtual ICollection<lohnabRechnung> lohnabRechnung { get; set; }
+        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<kunde> kunde { get; set; }
+        public virtual ICollection<Kunde> Kunde { get; set; }
     }
 }

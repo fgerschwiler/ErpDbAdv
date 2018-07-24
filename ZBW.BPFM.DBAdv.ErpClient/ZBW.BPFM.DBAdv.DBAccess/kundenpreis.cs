@@ -15,9 +15,9 @@ namespace ZBW.BPFM.DBAdv.DBAccess
     public partial class Kundenpreis
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public kundenpreis()
+        public Kundenpreis()
         {
-            this.bestellposition = new HashSet<bestellposition>();
+            this.Bestellposition = new HashSet<Bestellposition>();
         }
     
         public int Id { get; set; }
@@ -28,9 +28,9 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Waehrung { get; set; }
         public Nullable<int> Rabatt { get; set; }
     
-        public virtual artikel artikel { get; set; }
+        public virtual Artikel Artikel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bestellposition> bestellposition { get; set; }
-        public virtual kunde kunde { get; set; }
+        public virtual ICollection<Bestellposition> Bestellposition { get; set; }
+        public virtual Kunde Kunde { get; set; }
     }
 }

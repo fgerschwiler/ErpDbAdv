@@ -17,8 +17,8 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public bestellung()
         {
-            this.bestellposition = new HashSet<bestellposition>();
-            this.lieferschein = new HashSet<lieferschein>();
+            this.Bestellposition = new HashSet<Bestellposition>();
+            this.Lieferschein = new HashSet<Lieferschein>();
         }
     
         public int Id { get; set; }
@@ -28,9 +28,9 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Bemerkung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bestellposition> bestellposition { get; set; }
-        public virtual kunde kunde { get; set; }
+        public virtual ICollection<Bestellposition> Bestellposition { get; set; }
+        public virtual Kunde Kunde { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lieferschein> lieferschein { get; set; }
+        public virtual ICollection<Lieferschein> Lieferschein { get; set; }
     }
 }

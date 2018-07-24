@@ -13,7 +13,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         {
             using (var ctx = new ErpContext())
             {
-                return ctx.Bestellungen.AsQueryable();
+                return ctx.Bestellung.AsQueryable();
             }
         }
 
@@ -21,7 +21,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         {
             using (var ctx = new ErpContext())
             {
-                return ctx.Bestellungen.FindAsync(id);
+                return ctx.Bestellung.FindAsync(id);
             }
         }
 
@@ -29,7 +29,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         {
             using (var ctx = new ErpContext())
             {
-                var newBestellung = ctx.Bestellungen.Add(b);
+                var newBestellung = ctx.Bestellung.Add(b);
                 await ctx.SaveChangesAsync();
                 return newBestellung;
             }
@@ -40,7 +40,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         {
             using (var ctx = new ErpContext())
             {
-                ctx.Bestellungen.Remove(b);
+                ctx.Bestellung.Remove(b);
                 await ctx.SaveChangesAsync();
             }
         }

@@ -17,7 +17,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public land()
         {
-            this.ort = new HashSet<ort>();
+            this.Ort = new HashSet<Ort>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string Kuerzel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ort> ort { get; set; }
+        public virtual ICollection<Ort> Ort { get; set; }
     }
 }
