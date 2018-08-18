@@ -12,8 +12,13 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
+                <TextBox>
+                    <TextBox.Text>
+                        <Binding Path="SearchFilter" UpdateSourceTrigger="PropertyChanged"></Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <Grid>
-                    <ListView MinHeight="300" ItemsSource="{Binding Path=Auftraege}">
+                    <ListView MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
