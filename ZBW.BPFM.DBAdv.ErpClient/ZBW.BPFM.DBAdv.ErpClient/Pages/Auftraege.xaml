@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ZBW.BPFM.DBAdv.ErpClient.Pages.Home"
+﻿<UserControl x:Class="ZBW.BPFM.DBAdv.ErpClient.Pages.AuftraegeList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,11 +18,11 @@
                     </TextBox.Text>
                 </TextBox>
                 <Grid>
-                    <ListView MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" >
+                    <ListView MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" MouseDoubleClick="Auftrag_OnMouseDoubleClick">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                                <GridViewColumn Header="Eingangsdatum" DisplayMemberBinding="{Binding Bestelldatum}"/>
+                                <GridViewColumn Header="Eingangsdatum" DisplayMemberBinding="{Binding Bestelldatum, StringFormat={}{0:dd.MM.yyyy}}"/>
                                 <GridViewColumn Header="Kunde" DisplayMemberBinding="{Binding kunde.DisplayName}"/>
                                 <GridViewColumn Header="Positionen" DisplayMemberBinding="{Binding bestellposition.Count}"/>
                                 <GridViewColumn Header="Bemerkung" DisplayMemberBinding="{Binding Bemerkung}"/>

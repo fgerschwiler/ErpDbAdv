@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ZBW.BPFM.DBAdv.ErpClient.Pages.AuftragDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Pages"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="600">
+
+    <Grid Style="{StaticResource ContentRoot}" Margin="16,0,16,16">
+        <ScrollViewer DataContext="{Binding Path=Auftrag}">
+            <StackPanel MinWidth="200">
+                <Grid Height="257">
+                    <Label Content="Id" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox IsReadOnly="true" Height="25" Margin="10,34,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Text="{Binding Path=Id, Mode=OneWay}"></TextBox>
+
+                    <Label Content="Bestelldatum" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,73,0,0" VerticalAlignment="Top"/>
+                    <DatePicker SelectedDate="{Binding Bestelldatum}" DisplayDate="{Binding Bestelldatum}" Height="25" Margin="250,98,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"></DatePicker>
+
+                    <Label Content="Kunde" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox IsReadOnly="true" Height="25" Margin="250,34,0,0" VerticalAlignment="Top" Text="{Binding Path=kunde.DisplayName, Mode=OneWay}" HorizontalAlignment="Left" Width="200"/>
+
+                    <Label Content="Bemerkung" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                    <TextBox Width="200" Height="90" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" MinLines="3">
+                        <TextBox.Text>
+                            <Binding Path="Bemerkung" UpdateSourceTrigger="PropertyChanged"></Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                    <Label Content="Kommission" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,133,0,0" VerticalAlignment="Top"></Label>
+                    <TextBox Height="25" Margin="250,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
+                        <TextBox.Text>
+                            <Binding Path="Kommission" UpdateSourceTrigger="PropertyChanged"></Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    
+                    <Label Content="Totalpreis" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,193,0,0" VerticalAlignment="Top"/>
+                    <TextBox IsReadOnly="true" Height="25" Margin="10,218,0,-9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Text="{Binding TotalPreis, Mode=OneWay}"></TextBox>
+                </Grid>
+
+                <Grid Height="199">
+                    <ListView ItemsSource="{Binding Path=bestellposition}" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="PositionNr" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="ArtikelId" DisplayMemberBinding="{Binding artikel.Id}"/>
+                                <GridViewColumn Header="Bezeichnung" DisplayMemberBinding="{Binding artikel.Bezeichnung}"/>
+                                <GridViewColumn Header="Artikelpreis" DisplayMemberBinding="{Binding artikel.BruttoVP}"/>
+                                <GridViewColumn Header="Menge" DisplayMemberBinding="{Binding Menge}"/>
+
+                                <GridViewColumn Header="Kundenpreis" DisplayMemberBinding="{Binding kundenpreis.Verkaufspreis}"/>
+
+                                <GridViewColumn Header="Lager" DisplayMemberBinding="{Binding lagerposition.lager.Bezeichnung}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

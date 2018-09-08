@@ -73,10 +73,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AuftragDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Settings\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Pages\AuftragDetail.xaml.cs">
+      <DependentUpon>AuftragDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AuftragDetailViewModel.cs" />
     <Compile Include="Pages\AuftragViewModel.cs" />
     <Compile Include="Pages\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>

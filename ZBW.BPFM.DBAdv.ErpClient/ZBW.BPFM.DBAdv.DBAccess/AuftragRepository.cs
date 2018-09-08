@@ -25,6 +25,18 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
+        public bestellung GetAuftrag(int id)
+        {
+            using (var ctx = new ErpContext())
+            {
+                return ctx.bestellung
+                    .Include(b => b.bestellposition.Select(p => p.artikel))
+                    .Include(b => b.bestellposition.Select(p => p.kundenpreis))
+                    .Include(b => b.bestellposition.Select(p => p.lagerposition.lager))
+                    .FirstOrDefault(b => b.Id == id);
+            }
+        }
+
         public Task<bestellung> GetBestellungAsync(int id)
         {
             using (var ctx = new ErpContext())
