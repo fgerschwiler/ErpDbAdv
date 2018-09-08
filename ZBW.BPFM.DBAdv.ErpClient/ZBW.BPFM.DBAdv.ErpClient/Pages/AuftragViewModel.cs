@@ -23,7 +23,11 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             set
             {
                 _searchFilter = value;
-                this.FilteredAuftraege = new ObservableCollection<bestellung>(_repository.GetAuftraegeAsync().Where(a => a.Id.ToString().Contains(value)));
+                this.FilteredAuftraege = new ObservableCollection<bestellung>(
+                    _repository
+                    .GetAuftraegeAsync()
+                    .Where(a => a.Id.ToString().Contains(value) || a.kunde.DisplayName.ToLowerInvariant().Contains(value.ToLowerInvariant())));
+
                 OnPropertyChanged(nameof(FilteredAuftraege));
             }
         }

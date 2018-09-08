@@ -4,12 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="300">
     <Grid>
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="ABOUT" Style="{StaticResource Heading2}" />
-                <TextBlock Text="TODO: provide information about the software" Margin="0,0,0,8" TextWrapping="Wrap" />
+                <TextBlock Text="Über" Style="{StaticResource Heading2}" />
+                <TextBlock Text="Dies ist eine Projektarbeit im Fach Datebanken-Advanced an der höheren Fachschule ZBW in St.Gallen. Es ist ein C#-WPF Client für das Verwalten eines Teils der ERP Datenbank (MSSQL)." Margin="0,0,0,8" TextWrapping="Wrap" />
+                <TextBlock Text="Copyright © 2018" Margin="0,0,0,8" TextWrapping="Wrap" />
+                
+                <TextBlock Text="Projektteam" Style="{StaticResource Heading2}" />
+                <TextBlock>
+                    <Bold>Fabienne Gerschwiler</Bold>
+                    <LineBreak />
+                    Dokumentation &amp; NoSQL-Analyse
+                    <LineBreak />
+                </TextBlock>
+
+                <TextBlock>
+                    <Bold>Patrick Borgogno</Bold>
+                    <LineBreak />
+                    Window Functions &amp; Data-Warehouse
+                    <LineBreak />
+                </TextBlock>
+
+                <TextBlock>
+                    <Bold>Michael Bähren</Bold>
+                    <LineBreak />
+                    MySQL -> MSSQL Migration &amp; ERM
+                    <LineBreak />
+                </TextBlock>
+
+                <TextBlock>
+                    <Bold>Benjamin Schäublin</Bold>
+                    <LineBreak />
+                    WPF-Client &amp; Datenbankanbindung
+                </TextBlock>
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

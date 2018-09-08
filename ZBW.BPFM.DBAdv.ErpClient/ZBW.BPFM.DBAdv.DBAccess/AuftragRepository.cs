@@ -30,6 +30,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             using (var ctx = new ErpContext())
             {
                 return ctx.bestellung
+                    .Include(b => b.kunde.person)
                     .Include(b => b.bestellposition.Select(p => p.artikel))
                     .Include(b => b.bestellposition.Select(p => p.kundenpreis))
                     .Include(b => b.bestellposition.Select(p => p.lagerposition.lager))

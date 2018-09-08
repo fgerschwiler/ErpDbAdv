@@ -1,4 +1,5 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
+﻿using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace ZBW.BPFM.DBAdv.ErpClient
 {
@@ -10,6 +11,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient
         public MainWindow()
         {
             InitializeComponent();
+            AppearanceManager.Current.ThemeSource = AppearanceManager.DarkThemeSource;
         }
     }
 }

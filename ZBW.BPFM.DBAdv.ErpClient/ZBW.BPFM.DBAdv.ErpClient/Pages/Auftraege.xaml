@@ -5,33 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             HorizontalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             VerticalContentAlignment="Stretch"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="400" d:DesignWidth="700">
     <UserControl.DataContext>
         <local:AuftragViewModel></local:AuftragViewModel>
     </UserControl.DataContext>
-    <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBox>
-                    <TextBox.Text>
-                        <Binding Path="SearchFilter" UpdateSourceTrigger="PropertyChanged"></Binding>
-                    </TextBox.Text>
-                </TextBox>
+    <Grid Style="{StaticResource ContentRoot}" Margin="16,10,16,16">
+        <Label Content="Suche (z.B: nach Bestell-ID oder Kundenamen)"></Label>
+        <TextBox Height="25" Margin="0,20,0,0" VerticalAlignment="Top" >
+            <TextBox.Text>
+                <Binding Path="SearchFilter" UpdateSourceTrigger="PropertyChanged"></Binding>
+            </TextBox.Text>
+        </TextBox>
+        
+        <Grid Margin="0,50,0,0">
+            <ScrollViewer MinWidth="200">
                 <Grid>
-                    <ListView MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" MouseDoubleClick="Auftrag_OnMouseDoubleClick">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                                <GridViewColumn Header="Eingangsdatum" DisplayMemberBinding="{Binding Bestelldatum, StringFormat={}{0:dd.MM.yyyy}}"/>
-                                <GridViewColumn Header="Kunde" DisplayMemberBinding="{Binding kunde.DisplayName}"/>
-                                <GridViewColumn Header="Positionen" DisplayMemberBinding="{Binding bestellposition.Count}"/>
-                                <GridViewColumn Header="Bemerkung" DisplayMemberBinding="{Binding Bemerkung}"/>
-                                <GridViewColumn Header="Kommission" DisplayMemberBinding="{Binding Kommission}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" AutoGenerateColumns="False" MouseDoubleClick="Auftrag_OnMouseDoubleClick" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <mui:DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/>
+                            <mui:DataGridTextColumn Header="Eingangsdatum" Binding="{Binding Bestelldatum, StringFormat={}{0:dd.MM.yyyy}}"/>
+                            <mui:DataGridTextColumn Header="Kunde" Binding="{Binding kunde.DisplayName, Mode=OneWay}"/>
+                            <mui:DataGridTextColumn Header="Positionen" Binding="{Binding bestellposition.Count, Mode=OneWay}"/>
+                            <mui:DataGridTextColumn Header="Bemerkung" Binding="{Binding Bemerkung}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

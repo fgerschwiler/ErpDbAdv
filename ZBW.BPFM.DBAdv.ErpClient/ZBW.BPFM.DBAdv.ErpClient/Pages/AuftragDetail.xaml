@@ -5,12 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Pages"
              mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="600">
+             HorizontalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             VerticalContentAlignment="Stretch"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="500" d:DesignWidth="700">
 
     <Grid Style="{StaticResource ContentRoot}" Margin="16,0,16,16">
-        <ScrollViewer DataContext="{Binding Path=Auftrag}">
-            <StackPanel MinWidth="200">
-                <Grid Height="257">
+        <ScrollViewer DataContext="{Binding Path=Auftrag}" VerticalAlignment="Stretch">
+            <Grid MinWidth="200" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Label Content="Id" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox IsReadOnly="true" Height="25" Margin="10,34,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Text="{Binding Path=Id, Mode=OneWay}"></TextBox>
 
@@ -38,24 +43,21 @@
                     <TextBox IsReadOnly="true" Height="25" Margin="10,218,0,-9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Text="{Binding TotalPreis, Mode=OneWay}"></TextBox>
                 </Grid>
 
-                <Grid Height="199">
-                    <ListView ItemsSource="{Binding Path=bestellposition}" >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="PositionNr" DisplayMemberBinding="{Binding Id}"/>
-                                <GridViewColumn Header="ArtikelId" DisplayMemberBinding="{Binding artikel.Id}"/>
-                                <GridViewColumn Header="Bezeichnung" DisplayMemberBinding="{Binding artikel.Bezeichnung}"/>
-                                <GridViewColumn Header="Artikelpreis" DisplayMemberBinding="{Binding artikel.BruttoVP}"/>
-                                <GridViewColumn Header="Menge" DisplayMemberBinding="{Binding Menge}"/>
+                <Grid Margin="0,254,0,0">
+                    <DataGrid ItemsSource="{Binding Path=bestellposition}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <mui:DataGridTextColumn  Header="PositionNr" Binding="{Binding Id}"/>
+                            <mui:DataGridTextColumn  Header="ArtikelId" Binding="{Binding artikel.Id}"/>
+                            <mui:DataGridTextColumn  Header="Bezeichnung" Binding="{Binding artikel.Bezeichnung}"/>
+                            <mui:DataGridTextColumn  Header="Artikelpreis" Binding="{Binding artikel.BruttoVP}"/>
+                            <mui:DataGridTextColumn  Header="Menge" Binding="{Binding Menge}"/>
 
-                                <GridViewColumn Header="Kundenpreis" DisplayMemberBinding="{Binding kundenpreis.Verkaufspreis}"/>
-
-                                <GridViewColumn Header="Lager" DisplayMemberBinding="{Binding lagerposition.lager.Bezeichnung}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                            <mui:DataGridTextColumn  Header="Kundenpreis" Binding="{Binding kundenpreis.Verkaufspreis}"/>
+                            <mui:DataGridTextColumn  Header="Lager" Binding="{Binding lagerposition.lager.Bezeichnung}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
-            </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </UserControl>

@@ -11,8 +11,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
     public class AppearanceViewModel
         : NotifyPropertyChanged
     {
-        private const string FontSmall = "small";
-        private const string FontLarge = "large";
+        private const string FontSmall = "klein";
+        private const string FontLarge = "gross";
 
         // 9 accent colors from metro design principles
         /*private Color[] accentColors = new Color[]{
@@ -36,8 +36,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages.Settings
         public AppearanceViewModel()
         {
             // add the default themes
-            Themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
-            Themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
+            Themes.Add(new Link { DisplayName = "dunkel", Source = AppearanceManager.DarkThemeSource });
+            Themes.Add(new Link { DisplayName = "hell", Source = AppearanceManager.LightThemeSource });
 
             SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
             SyncThemeAndColor();
