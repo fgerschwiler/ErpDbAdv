@@ -19,5 +19,6 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             filter = filter.ToLowerInvariant();
             return Id.ToString().Contains(filter) || kunde.DisplayName.ToLowerInvariant().Contains(filter);
         }
+        
     }
 }

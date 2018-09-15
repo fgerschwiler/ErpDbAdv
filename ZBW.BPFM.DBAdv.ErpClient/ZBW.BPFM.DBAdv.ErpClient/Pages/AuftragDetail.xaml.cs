@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using ZBW.BPFM.DBAdv.ErpClient.Commands;
+using ZBW.BPFM.DBAdv.ErpClient.Utilities;
 
 namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 {
@@ -19,13 +23,11 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
-            var fragmentPair = e.Fragment.Split(new[] {"="}, StringSplitOptions.RemoveEmptyEntries);
-            if (fragmentPair.Length != 2 || string.IsNullOrWhiteSpace(fragmentPair[1]))
-            {
+            var fragment = Fragment.FromString(e.Fragment);
+            if (fragment == null || fragment.Key != FragmentConstants.ID_KEY)
                 return;
-            }
 
-            var id = int.Parse(fragmentPair[1]);
+            var id = int.Parse(fragment.Value);
             ViewModel = new AuftragDetailViewModel(id);
             DataContext = ViewModel;
         }

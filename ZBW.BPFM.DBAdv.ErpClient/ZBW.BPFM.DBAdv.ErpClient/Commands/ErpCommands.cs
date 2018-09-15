@@ -9,5 +9,6 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Commands
     public class ErpCommands
     {
         public static SaveBestellungCommand SaveBestellungCommand = new SaveBestellungCommand();
+        public static RemoveBestellungCommand RemoveBestellungCommand = new RemoveBestellungCommand();
     }
 }

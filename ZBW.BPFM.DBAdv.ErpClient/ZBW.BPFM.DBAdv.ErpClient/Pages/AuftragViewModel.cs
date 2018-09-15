@@ -18,20 +18,46 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public string SearchFilter
         {
-            get { return _searchFilter; }
+            get => _searchFilter;
             set
             {
                 _searchFilter = value;
 
-                var filtered = _repository.GetAll(bestellung => bestellung.MatchesFilter(_searchFilter));
-
+                var filtered = string.IsNullOrWhiteSpace(_searchFilter)
+                    ? _repository.GetAll()
+                    : _repository.GetAll(bestellung => bestellung.MatchesFilter(_searchFilter));
+                    
                 FilteredAuftraege = new ObservableCollection<bestellung>(filtered);
                 OnPropertyChanged(nameof(FilteredAuftraege));
             }
         }
 
+        public bool HasError
+        {
+            get => _hasError;
+            set
+            {
+                if (value == _hasError) return;
+                _hasError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool HasSuccess
+        {
+            get => _hasSuccess;
+            set
+            {
+                if (value == _hasSuccess) return;
+                _hasSuccess = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly AuftragRepository _repository = null;
         private string _searchFilter;
+        private bool _hasError;
+        private bool _hasSuccess;
 
         public AuftragViewModel()
         {
@@ -43,6 +69,11 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Refresh()
+        {
+            SearchFilter = _searchFilter;
         }
     }
 }

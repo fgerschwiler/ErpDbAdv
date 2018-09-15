@@ -1,18 +1,26 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
 using ZBW.BPFM.DBAdv.DBAccess;
+using ZBW.BPFM.DBAdv.ErpClient.Utilities;
 
 namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 {
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class AuftraegeList : UserControl
+    public partial class Auftraege : UserControl, IContent
     {
-        public AuftraegeList()
+        private readonly AuftragViewModel viewModel;
+        public Auftraege()
         {
             InitializeComponent();
+            
+            viewModel = new AuftragViewModel();
+            DataContext = viewModel;
         }
 
         private void Auftrag_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -22,6 +30,33 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             {
                 NavigationCommands.GoToPage.Execute($"/Pages/{nameof(AuftragDetail)}.xaml#id={item.Id}", this);
             }
+        }
+
+        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        {
+            var fragment = Fragment.FromString(e.Fragment);
+            if (fragment != null && IsRefreshRequested(fragment)) 
+                viewModel.Refresh();
+        }
+
+        public void OnNavigatedFrom(NavigationEventArgs e)
+        {
+        
+        }
+
+        public void OnNavigatedTo(NavigationEventArgs e)
+        {
+         
+        }
+
+        public void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+          
+        }
+
+        private bool IsRefreshRequested(Fragment f)
+        {
+            return f.Key == FragmentConstants.REFRESH_KEY && f.Value == FragmentConstants.DO_REFRESH;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 if (where != null)
                     baseQuery = baseQuery.Where(where);
 
-                return baseQuery.AsNoTracking().ToList();
+                return baseQuery.ToList();
             }
         }
 
@@ -50,11 +50,20 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
-        public void Remove(bestellung b)
+        public void Remove(bestellung obj)
         {
             using (var ctx = new ErpContext())
             {
-                ctx.bestellung.Remove(b);
+                ctx.bestellung.Attach(obj);
+
+                ctx.Entry(obj).Reload();
+                ctx.Entry(obj).Collection(b => b.lieferschein).Load();
+                ctx.Entry(obj).Collection(b => b.bestellposition).Load();
+
+                ctx.lieferschein.RemoveRange(obj.lieferschein);
+                ctx.bestellposition.RemoveRange(obj.bestellposition);
+
+                ctx.bestellung.Remove(obj);
                 ctx.SaveChanges();
             }
         }
