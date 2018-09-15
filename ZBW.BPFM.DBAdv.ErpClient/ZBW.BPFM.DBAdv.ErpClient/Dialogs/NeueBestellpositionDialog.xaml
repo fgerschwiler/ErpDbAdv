@@ -1,0 +1,42 @@
+﻿<mui:ModernDialog x:Class="ZBW.BPFM.DBAdv.ErpClient.Dialogs.NeueBestellpositionDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                  xmlns:dialogs="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Dialogs"
+                  mc:Ignorable="d" 
+                  d:DesignHeight="300" d:DesignWidth="300"
+                  Title="ModernDialog">
+    <mui:ModernDialog.DataContext>
+        <dialogs:BestellpositionViewModel></dialogs:BestellpositionViewModel>
+    </mui:ModernDialog.DataContext>
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,4">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Orientation" Value="Horizontal" />
+                    <Setter Property="Margin" Value="0,0,0,4" />
+                </Style>
+                <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                    <Setter Property="Width" Value="100" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Resources>
+
+            <StackPanel>
+                <Label Content="Artikel" />
+                <ComboBox Width="150" ItemsSource="{Binding ArtikelSource}" SelectedItem="{Binding SelectedArtikel, Mode=TwoWay, ValidatesOnDataErrors=True}" DisplayMemberPath="Bezeichnung" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Menge" />
+                <TextBox Width="150" Text="{Binding Menge, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Lagerposition" />
+                <ComboBox Width="150" ItemsSource="{Binding LagerPositionen}" SelectedItem="{Binding SelectedLagerPosition, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</mui:ModernDialog>

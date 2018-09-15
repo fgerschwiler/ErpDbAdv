@@ -25,7 +25,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
                 var filtered = string.IsNullOrWhiteSpace(_searchFilter)
                     ? _repository.GetAll()
-                    : _repository.GetAll(bestellung => bestellung.MatchesFilter(_searchFilter));
+                    : _repository.GetAll(b => b.MatchesFilter(_searchFilter));
                     
                 FilteredAuftraege = new ObservableCollection<bestellung>(filtered);
                 OnPropertyChanged(nameof(FilteredAuftraege));

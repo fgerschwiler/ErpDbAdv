@@ -17,7 +17,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public bool MatchesFilter(string filter)
         {
             filter = filter.ToLowerInvariant();
-            return Id.ToString().Contains(filter) || kunde.DisplayName.ToLowerInvariant().Contains(filter);
+            return Id.ToString().Contains(filter) || kunde.DisplayName.ToLower().Contains(filter);
         }
         
     }

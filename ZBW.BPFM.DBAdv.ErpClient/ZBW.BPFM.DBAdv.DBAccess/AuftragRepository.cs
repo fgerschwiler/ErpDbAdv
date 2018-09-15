@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 
 namespace ZBW.BPFM.DBAdv.DBAccess
 {
-    public class AuftragRepository : IDataRepository<bestellung>
+    public class AuftragRepository : DataRepository<bestellung>
     {
-        public List<bestellung> GetAll(Expression<Func<bestellung, bool>> where = null)
+        public override IEnumerable<bestellung> GetAll(Func<bestellung, bool> where = null)
         {
             using (var ctx = new ErpContext())
             {
                 var baseQuery = ctx.bestellung
                     .Include(x => x.kunde.person)
-                    .Include(b => b.bestellposition);
+                    .Include(b => b.bestellposition).ToList();
 
                 if (where != null)
-                    baseQuery = baseQuery.Where(where);
+                    baseQuery = baseQuery.Where(where).ToList();
 
                 return baseQuery.ToList();
             }
         }
 
-        public bestellung GetSingle(int id)
+        public override bestellung GetSingle(int id)
         {
             using (var ctx = new ErpContext())
             {
@@ -40,17 +40,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
-        public bestellung Create(bestellung b)
-        {
-            using (var ctx = new ErpContext())
-            {
-                var newBestellung = ctx.bestellung.Add(b);
-                ctx.SaveChanges();
-                return newBestellung;
-            }
-        }
-
-        public void Remove(bestellung obj)
+        public override void Remove(bestellung obj)
         {
             using (var ctx = new ErpContext())
             {
@@ -64,15 +54,6 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 ctx.bestellposition.RemoveRange(obj.bestellposition);
 
                 ctx.bestellung.Remove(obj);
-                ctx.SaveChanges();
-            }
-        }
-
-        public void Update(bestellung b)
-        {
-            using (var ctx = new ErpContext())
-            {
-                ctx.bestellung.AddOrUpdate(b);
                 ctx.SaveChanges();
             }
         }

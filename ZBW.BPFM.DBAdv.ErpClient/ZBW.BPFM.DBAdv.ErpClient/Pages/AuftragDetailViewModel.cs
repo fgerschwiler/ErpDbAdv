@@ -8,20 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using ZBW.BPFM.DBAdv.DBAccess;
 using ZBW.BPFM.DBAdv.ErpClient.Annotations;
-using ZBW.BPFM.DBAdv.ErpClient.Commands;
-
 namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 {
     public class AuftragDetailViewModel : INotifyPropertyChanged
     {
         public bestellung Auftrag { get; set; }
-        public SaveBestellungCommand SaveBestellungCommand { get; set; }
+
+        readonly AuftragRepository _repository;
 
         public AuftragDetailViewModel(int bestellId)
         {
-            var repository = new AuftragRepository();
-            Auftrag = repository.GetSingle(bestellId);
-            SaveBestellungCommand = new SaveBestellungCommand();
+            
+            _repository = new AuftragRepository();
+            Auftrag = _repository.GetSingle(bestellId);
+        }
+
+        public void UpdateAuftrag()
+        {
+            _repository.Update(Auftrag);
+        }
+
+        public void RemoveAuftrag()
+        {
+            _repository.Remove(Auftrag);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
