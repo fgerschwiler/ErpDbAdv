@@ -69,6 +69,7 @@
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="bestellung.partial.cs" />
+    <Compile Include="IDataRepository.cs" />
     <Compile Include="kunde.partial.cs" />
     <Compile Include="ErpModel.Context.cs">
       <AutoGen>True</AutoGen>

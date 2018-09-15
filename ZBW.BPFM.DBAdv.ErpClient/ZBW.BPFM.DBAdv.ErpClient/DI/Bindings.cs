@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ninject.Modules;
+using ZBW.BPFM.DBAdv.DBAccess;
+using ZBW.BPFM.DBAdv.ErpClient.Pages;
+
+namespace ZBW.BPFM.DBAdv.ErpClient.DI
+{
+    public class Bindings : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<IDataRepository<bestellung>>().To<AuftragRepository>();
+            Bind<AuftragViewModel>().ToSelf();
+        }
+    }
+}

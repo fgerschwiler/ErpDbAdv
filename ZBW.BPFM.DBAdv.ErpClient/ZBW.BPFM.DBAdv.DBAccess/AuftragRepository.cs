@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 
 namespace ZBW.BPFM.DBAdv.DBAccess
 {
-    public class AuftragRepository
+    public class AuftragRepository : IDataRepository<bestellung>
     {
-        public List<bestellung> GetAuftraegeAsync()
+        public List<bestellung> GetAll(Expression<Func<bestellung, bool>> where = null)
         {
             using (var ctx = new ErpContext())
             {
-                ctx.Configuration.LazyLoadingEnabled = false;
-               return ctx.bestellung
+                var baseQuery = ctx.bestellung
                     .Include(x => x.kunde.person)
-                    .Include(b => b.bestellposition)
-                    .AsNoTracking()
-                    .ToList();
+                    .Include(b => b.bestellposition);
 
-//                ctx.Configuration.LazyLoadingEnabled = true;
+                if (where != null)
+                    baseQuery = baseQuery.Where(where);
+
+                return baseQuery.AsNoTracking().ToList();
             }
         }
 
-        public bestellung GetAuftrag(int id)
+        public bestellung GetSingle(int id)
         {
             using (var ctx = new ErpContext())
             {
@@ -38,31 +40,31 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
-        public Task<bestellung> GetBestellungAsync(int id)
-        {
-            using (var ctx = new ErpContext())
-            {
-                return ctx.bestellung.FindAsync(id);
-            }
-        }
-
-        public async Task<bestellung> CreateBestellungAsync(bestellung b)
+        public bestellung Create(bestellung b)
         {
             using (var ctx = new ErpContext())
             {
                 var newBestellung = ctx.bestellung.Add(b);
-                await ctx.SaveChangesAsync();
+                ctx.SaveChanges();
                 return newBestellung;
             }
         }
 
-
-        public async Task DeleteBestellungAsync(bestellung b)
+        public void Remove(bestellung b)
         {
             using (var ctx = new ErpContext())
             {
                 ctx.bestellung.Remove(b);
-                await ctx.SaveChangesAsync();
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Update(bestellung b)
+        {
+            using (var ctx = new ErpContext())
+            {
+                ctx.bestellung.AddOrUpdate(b);
+                ctx.SaveChanges();
             }
         }
     }

@@ -13,9 +13,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 {
     public class AuftragViewModel : INotifyPropertyChanged
     {
-        private AuftragRepository _repository = null;
-        private string _searchFilter;
         public ObservableCollection<bestellung> FilteredAuftraege { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string SearchFilter
         {
@@ -23,23 +22,22 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             set
             {
                 _searchFilter = value;
-                this.FilteredAuftraege = new ObservableCollection<bestellung>(
-                    _repository
-                    .GetAuftraegeAsync()
-                    .Where(a => a.Id.ToString().Contains(value) || a.kunde.DisplayName.ToLowerInvariant().Contains(value.ToLowerInvariant())));
 
+                var filtered = _repository.GetAll(bestellung => bestellung.MatchesFilter(_searchFilter));
+
+                FilteredAuftraege = new ObservableCollection<bestellung>(filtered);
                 OnPropertyChanged(nameof(FilteredAuftraege));
             }
         }
 
+        private readonly AuftragRepository _repository = null;
+        private string _searchFilter;
+
         public AuftragViewModel()
         {
             _repository = new AuftragRepository();
-            var auftraege = _repository.GetAuftraegeAsync();
-            FilteredAuftraege = new ObservableCollection<bestellung>(auftraege);
+            FilteredAuftraege = new ObservableCollection<bestellung>(_repository.GetAll());
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

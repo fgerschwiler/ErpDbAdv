@@ -12,5 +12,12 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         public string TotalPreis => this.bestellposition
             .Where(p => p.kundenpreis != null || p.artikel != null)
             .Sum(p => p.kundenpreis?.Verkaufspreis ?? p.artikel.BruttoVP).ToString("C", CultureInfo.CreateSpecificCulture("de-ch"));
+
+
+        public bool MatchesFilter(string filter)
+        {
+            filter = filter.ToLowerInvariant();
+            return Id.ToString().Contains(filter) || kunde.DisplayName.ToLowerInvariant().Contains(filter);
+        }
     }
 }
