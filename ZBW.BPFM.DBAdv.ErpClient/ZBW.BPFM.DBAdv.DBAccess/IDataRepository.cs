@@ -10,7 +10,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         List<T> GetAll(Func<T, bool> where = null);
         T GetSingle(int id);
         T Create(T obj);
-        void Remove(T obj);
+        void Remove(int id);
         void Update(T obj);
     }
 }

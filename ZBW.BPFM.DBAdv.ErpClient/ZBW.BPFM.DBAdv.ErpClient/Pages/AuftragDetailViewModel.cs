@@ -30,7 +30,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public void RemoveAuftrag()
         {
-            _repository.Remove(Auftrag);
+            _repository.Remove(Auftrag.Id);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

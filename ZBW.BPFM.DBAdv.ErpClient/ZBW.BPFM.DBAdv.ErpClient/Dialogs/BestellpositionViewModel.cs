@@ -17,9 +17,22 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
         private readonly IDataRepository<artikel> _artikelRepo;
         private readonly IDataRepository<lagerposition> _lagerpRepo;
         private readonly IDataRepository<kundenpreis> _kundenPreisRepo;
+        private bool _enableKeyFields;
 
         public ObservableCollection<artikel> ArtikelSource { get; set; }
         public ObservableCollection<lagerposition> LagerPositionen { get; set; }
+
+        public bool EnableKeyFields  
+        {
+            get { return _enableKeyFields; }
+            set
+            {
+                if (value == _enableKeyFields) return;
+                _enableKeyFields = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedArtikel));
+            }
+        }
 
         public decimal Menge
         {
@@ -130,6 +143,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
                     kundenpreis = new kundenpreis {},
                     bestellung =  bestellung
                 },
+                EnableKeyFields = true
             };
         }
 
@@ -140,6 +154,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
                 BestellPosition = bestellposition,
                 SelectedArtikel = bestellposition.artikel,
                 SelectedLagerPosition = bestellposition.lagerposition,
+                EnableKeyFields = false
             };
         }
 
@@ -150,8 +165,12 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
             if (p.Id == 0)
                 _bpositionenRepo.Create(p);
             else
-                _bpositionenRepo.Update(p);
-            
+                _bpositionenRepo.Update(p);   
+        }
+
+        public void Remove()
+        {
+            _bpositionenRepo.Remove(BestellPosition.Id);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

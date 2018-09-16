@@ -40,11 +40,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
-        public override void Remove(bestellung obj)
+        public override void Remove(int id)
         {
             using (var ctx = new ErpContext())
             {
-                ctx.bestellung.Attach(obj);
+                var obj = ctx.bestellung.Find(id);
 
                 ctx.Entry(obj).Reload();
                 ctx.Entry(obj).Collection(b => b.lieferschein).Load();

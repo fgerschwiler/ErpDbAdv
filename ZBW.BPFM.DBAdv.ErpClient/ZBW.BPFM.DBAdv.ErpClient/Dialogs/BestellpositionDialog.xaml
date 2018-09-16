@@ -6,7 +6,7 @@
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   xmlns:dialogs="clr-namespace:ZBW.BPFM.DBAdv.ErpClient.Dialogs"
                   mc:Ignorable="d" 
-                  d:DesignHeight="300" d:DesignWidth="300"
+                  d:DesignHeight="400" d:DesignWidth="300"
                   Title="ModernDialog">
     <mui:ModernDialog.DataContext>
         <dialogs:BestellpositionViewModel></dialogs:BestellpositionViewModel>
@@ -26,7 +26,7 @@
 
             <StackPanel>
                 <Label Content="Artikel" />
-                <ComboBox Width="150" ItemsSource="{Binding ArtikelSource}" SelectedItem="{Binding SelectedArtikel, Mode=TwoWay, ValidatesOnDataErrors=True}" DisplayMemberPath="Bezeichnung" />
+                <ComboBox Width="150" IsEnabled="{Binding EnableKeyFields}" ItemsSource="{Binding ArtikelSource}" SelectedItem="{Binding SelectedArtikel, Mode=TwoWay, ValidatesOnDataErrors=True}" DisplayMemberPath="Bezeichnung" />
             </StackPanel>
             <StackPanel>
                 <Label Content="Menge" />
@@ -48,6 +48,12 @@
             <StackPanel>
                 <Label Content="Gültig bis" />
                 <DatePicker Width="150" SelectedDate="{Binding GueltigBis, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Stretch" Margin="0 20 0 20">
+                <Grid HorizontalAlignment="Stretch" Width="58">
+                    <mui:ModernButton Click="OnRemoveButton_Click" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" ToolTip="Löschen" VerticalAlignment="Top" Width="40"/>
+                </Grid>
+              
             </StackPanel>
         </StackPanel>
     </Grid>

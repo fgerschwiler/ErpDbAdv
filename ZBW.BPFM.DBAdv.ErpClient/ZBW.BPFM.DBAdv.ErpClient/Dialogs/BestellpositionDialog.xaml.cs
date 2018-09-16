@@ -31,7 +31,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
             InitializeComponent();
 
             // define the dialog buttons
-            this.Buttons = new Button[] { this.OkButton, this.CancelButton };
+            this.Buttons = new Button[] { this.OkButton, this.CancelButton, this.NoButton };
             OkButton.Click += OkButtonOnClick;
         }
 
@@ -65,6 +65,13 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
             _viewModel = BestellpositionViewModel.FromExisting(p);
             DataContext = _viewModel;
      
+        }
+
+        private void OnRemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Remove();
+            DialogResult = true;
+            Close();
         }
     }
 }

@@ -51,6 +51,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             AddOrUpdateBestellposition(p);
         }
 
+        private bool HasKundenPreis(bestellposition p)
+        {
+            return (p.fk_Bestellposition_KundenPreis.HasValue || p.fk_Bestellposition_KundenPreis == 0);
+        }
+
         private bestellposition AddOrUpdateBestellposition(bestellposition p)
         {
             using (var ctx = new ErpContext())
@@ -59,7 +64,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 p.artikel = ctx.artikel.Find(p.artikel.Id);
                 p.lagerposition = ctx.lagerposition.Find(p.lagerposition.Id);
 
-                if (p.kundenpreis.Rabatt > 0)
+                if (!HasKundenPreis(p) && p.kundenpreis.Rabatt > 0)
                 {
                     var kundenPreis = p.kundenpreis;
                     kundenPreis.artikel = p.artikel;
@@ -68,6 +73,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
 
                     ctx.kundenpreis.Add(kundenPreis);
                     ctx.SaveChanges();
+
                     p.kundenpreis = ctx.kundenpreis.Find(p.kundenpreis.Id);
                     p.fk_Bestellposition_KundenPreis = p.kundenpreis.Id;
                 }
@@ -82,6 +88,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 }
 
                 ctx.bestellposition.AddOrUpdate(p);
+
                 ctx.SaveChanges();
                 return GetSingle(p.Id);
             }

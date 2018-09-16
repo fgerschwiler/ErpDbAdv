@@ -44,11 +44,11 @@ namespace ZBW.BPFM.DBAdv.DBAccess
             }
         }
 
-        public virtual void Remove(T obj)
+        public virtual void Remove(int id)
         {
             using (var ctx = new ErpContext())
             {
-                ctx.Set<T>().Attach(obj);
+                var obj = ctx.Set<T>().Find(id);
                 ctx.Set<T>().Remove(obj);
                 ctx.SaveChanges();
             }
