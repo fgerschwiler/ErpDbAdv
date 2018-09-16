@@ -133,7 +133,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
                 BestellPosition = new bestellposition
                 {
                     kundenpreis = new kundenpreis(),
-                    bestellung =  bestellung
+                    bestellung =  bestellung,
+                    Menge = 1
                 },
                 EnableKeyFields = true
             };
