@@ -26,5 +26,5 @@ Speichern
 #### Im app.config
 Im Sourcecode nach im File app.config die obigen Anweisungen wiederholen oder die Werte aus dem .exe.config übernehmen
 
-### Run or Debug
+### Schritt 3: Run or Debug
 Den Releasebuild "ZBW.BPFM.DBAdv.ErpClient.exe" starten oder im Visual Studio das Projekt "ZBW.BPFM.DBAdv.ErpClient" Debuggen.
