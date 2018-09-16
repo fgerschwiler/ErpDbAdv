@@ -11,7 +11,58 @@
              VerticalContentAlignment="Stretch"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              d:DesignHeight="500" d:DesignWidth="700">
-
+    <UserControl.Resources>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderThickness="1" BorderBrush="#FFdc000c" VerticalAlignment="Top">
+                                <Grid>
+                                    <AdornedElementPlaceholder x:Name="adorner" Margin="-1"/>
+                                </Grid>
+                            </Border>
+                            <Border x:Name="errorBorder" Background="#FFdc000c" Margin="8,0,0,0"
+                                    Opacity="0" CornerRadius="0"
+                                    IsHitTestVisible="False"
+                                    MinHeight="24" >
+                                <TextBlock Text="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                           Foreground="White" Margin="8,2,8,3" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <Binding ElementName="adorner" Path="AdornedElement.IsKeyboardFocused" />
+                                </DataTrigger.Binding>
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="fadeInStoryboard">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="00:00:00.15"
+                                                             Storyboard.TargetName="errorBorder"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="fadeInStoryboard"/>
+                                    <BeginStoryboard x:Name="fadeOutStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="00:00:00"
+                                                             Storyboard.TargetName="errorBorder"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}" Margin="16,0,16,16">
         <ScrollViewer DataContext="{Binding Path=Auftrag}" VerticalAlignment="Stretch">
             <Grid MinWidth="200" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -19,15 +70,21 @@
                     <Label Content="Id" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox IsReadOnly="true" Height="25" Margin="10,34,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Text="{Binding Path=Id, Mode=OneWay}"></TextBox>
 
-                    <Label Content="Bestelldatum" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,73,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Bestelldatum *" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,73,0,0" VerticalAlignment="Top"/>
                     <DatePicker SelectedDate="{Binding Bestelldatum}" DisplayDate="{Binding Bestelldatum}" Height="25" Margin="250,98,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"></DatePicker>
 
-                    <Label Content="Kunde" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox IsReadOnly="true" Height="25" Margin="250,34,0,0" VerticalAlignment="Top" Text="{Binding Path=kunde.DisplayName, Mode=OneWay}" HorizontalAlignment="Left" Width="200"/>
+                    <Label Content="Kunde *" Width="200" Height="20" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Width="200" Margin="250,34,0,0" VerticalAlignment="Top" 
+                              IsEnabled="{Binding Path=DataContext.EnableKeyFields, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+                              ItemsSource="{Binding Path=DataContext.Kunden, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+                              SelectedItem="{Binding DataContext.SelectedKunde, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, 
+                                            Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}" 
+                              DisplayMemberPath="DisplayName" HorizontalAlignment="Left"/>
 
-                    <mui:ModernButton Click="OnSaveButton_Click" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" ToolTip="Speichern" Margin="476,28,154,0" VerticalAlignment="Top"></mui:ModernButton>
+                    <mui:ModernButton Click="OnSaveButton_Click" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" ToolTip="Speichern" Margin="476,28,154,0" VerticalAlignment="Top" IsEnabled="{Binding Path=DataContext.CanSave, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                    </mui:ModernButton>
                     <mui:ModernButton Click="OnRemoveButton_Click" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" ToolTip="Löschen" Margin="525,28,100,0" VerticalAlignment="Top"></mui:ModernButton>
-                    <mui:ModernButton Click="OnAddBestellpositionButton_Clicked" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1 2-2.76 5H8.53l-.13-.27L6.16 6l-.95-2-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z" ToolTip="Neue Bestellposition hinzufügen" Margin="573,28,52,0" VerticalAlignment="Top"></mui:ModernButton>
+                    <mui:ModernButton Click="OnAddBestellpositionButton_Clicked" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1 2-2.76 5H8.53l-.13-.27L6.16 6l-.95-2-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z" ToolTip="Neue Bestellposition hinzufügen" Margin="573,28,52,0" VerticalAlignment="Top" IsEnabled="{Binding Path=DataContext.CanAddPositionen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"></mui:ModernButton>
                     
                     <Label Content="Bemerkung" Width="200" Height="20" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
                     <TextBox Width="200" Height="90" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" MinLines="3">

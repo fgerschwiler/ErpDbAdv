@@ -25,15 +25,15 @@
             </StackPanel.Resources>
 
             <StackPanel>
-                <Label Content="Artikel" />
+                <Label Content="Artikel *" />
                 <ComboBox Width="150" IsEnabled="{Binding EnableKeyFields}" ItemsSource="{Binding ArtikelSource}" SelectedItem="{Binding SelectedArtikel, Mode=TwoWay, ValidatesOnDataErrors=True}" DisplayMemberPath="Bezeichnung" />
             </StackPanel>
             <StackPanel>
-                <Label Content="Menge" />
+                <Label Content="Menge *" />
                 <TextBox Width="150" Text="{Binding Menge, Mode=TwoWay, ValidatesOnDataErrors=True}" />
             </StackPanel>
             <StackPanel>
-                <Label Content="Lagerposition" />
+                <Label Content="Lagerposition *" />
                 <ComboBox Width="150" ItemsSource="{Binding LagerPositionen}" SelectedItem="{Binding SelectedLagerPosition, Mode=TwoWay, ValidatesOnDataErrors=True}" />
             </StackPanel>
             <StackPanel>

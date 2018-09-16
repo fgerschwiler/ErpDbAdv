@@ -32,23 +32,43 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             if (fragment.ContainsKey(FragmentConstants.ID_KEY))
             {
                 var id = int.Parse(fragment[FragmentConstants.ID_KEY]);
-                Reload(id);
+                if (id == 0)
+                {
+                    ViewModel = new AuftragDetailViewModel();
+                    DataContext = ViewModel;
+                }
+                else
+                {
+                    Reload(id);
+                }
             }
         }
 
         private void Reload(int id)
         {
-            ViewModel = new AuftragDetailViewModel(id);
+            var repo = new AuftragRepository();
+            ViewModel = AuftragDetailViewModel.FromExisting(repo.GetSingle(id));
             DataContext = ViewModel;
         }
 
         private void OnRemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.UpdateAuftrag();
+            if (!PromptConfirmDialog())
+                return;
+
+            ViewModel.RemoveAuftrag();
+
+            var p = $"/Pages/{nameof(Auftraege)}.xaml?{FragmentConstants.REFRESH_KEY}={FragmentConstants.DO_REFRESH}";
+            NavigationCommands.GoToPage.Execute(p, null);
         }
 
         private void OnAddBestellpositionButton_Clicked(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(this.ViewModel.Error))
+            {
+                return;
+            }
+              
             var success = PromptNewBestellpositionDialog();
             if (success)
             {
@@ -58,13 +78,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         private void OnSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!PromptConfirmDialog())
-                return;
-
-            ViewModel.RemoveAuftrag();
-
-            var p = $"/Pages/{nameof(Auftraege)}.xaml?{FragmentConstants.REFRESH_KEY}={FragmentConstants.DO_REFRESH}";
-            NavigationCommands.GoToPage.Execute(p, null);
+            ViewModel.UpdateAuftrag();
+            Reload(ViewModel.Auftrag.Id);
         }
 
         private bool PromptNewBestellpositionDialog()

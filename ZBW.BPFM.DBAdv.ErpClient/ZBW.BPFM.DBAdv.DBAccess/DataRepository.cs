@@ -17,10 +17,10 @@ namespace ZBW.BPFM.DBAdv.DBAccess
         {
             using (var ctx = new ErpContext())
             {
-                IEnumerable<T> baseQuery = ctx.Set<T>().ToList();
+                List<T> baseQuery = ctx.Set<T>().ToList();
 
                 if (where != null)
-                    baseQuery = baseQuery.Where(where); // running filter in-memory, because of non-db fields like displayname's etc.
+                    baseQuery = baseQuery.Where(where).ToList(); // running filter in-memory, because of non-db fields like displayname's etc.
 
                 return baseQuery.ToList();
             }

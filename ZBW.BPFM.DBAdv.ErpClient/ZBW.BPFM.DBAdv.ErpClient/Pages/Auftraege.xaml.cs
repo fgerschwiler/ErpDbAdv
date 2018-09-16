@@ -58,5 +58,10 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         {
             return f.ContainsKey(FragmentConstants.REFRESH_KEY) && f[FragmentConstants.REFRESH_KEY] == FragmentConstants.DO_REFRESH;
         }
+
+        private void NewBestellungButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationCommands.GoToPage.Execute($"/Pages/{nameof(AuftragDetail)}.xaml#id=0", this);
+        }
     }
 }

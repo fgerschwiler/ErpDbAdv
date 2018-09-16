@@ -13,13 +13,14 @@
              d:DesignHeight="400" d:DesignWidth="700">
     <Grid Style="{StaticResource ContentRoot}" Margin="16,10,16,16">
         <Label Content="Suche (z.B: nach Bestell-ID oder Kundenamen)"></Label>
-        <TextBox Height="25" Margin="0,20,0,0" VerticalAlignment="Top" >
+        <TextBox Height="25" Margin="0,20,65,0" VerticalAlignment="Top" >
             <TextBox.Text>
                 <Binding Path="SearchFilter" UpdateSourceTrigger="PropertyChanged"></Binding>
             </TextBox.Text>
         </TextBox>
-        
-        <Grid Margin="0,50,0,0">
+        <mui:ModernButton Click="NewBestellungButton_Click" IconWidth="20" IconHeight="20" EllipseDiameter="35" IconData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z" ToolTip="Neue Bestellung erfassen" Margin="0,12,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="46"/>
+
+        <Grid Margin="0,60,0,0">
             <ScrollViewer MinWidth="200">
                 <Grid>
                     <DataGrid MinHeight="300" ItemsSource="{Binding Path=FilteredAuftraege}" AutoGenerateColumns="False" MouseDoubleClick="Auftrag_OnMouseDoubleClick" IsReadOnly="True">

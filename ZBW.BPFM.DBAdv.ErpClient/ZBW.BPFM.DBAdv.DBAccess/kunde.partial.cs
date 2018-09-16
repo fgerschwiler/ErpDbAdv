@@ -8,6 +8,6 @@ namespace ZBW.BPFM.DBAdv.DBAccess
 {
     public partial class kunde
     {
-        public string DisplayName =>  this.person != null ? this.person.Vorname + " " + this.person.Name : Organisation;
+        public string DisplayName =>  this.person != null ? (this.person.Vorname + " " + this.person.Name).Trim() : Organisation.Trim();
     }
 }
