@@ -1,14 +1,17 @@
 # ZBW.BPFM.DBAdv.ErpClient
+Ein WPF-Client mit Entity-Frameworks DB-First Anbindung.
 
 ## Pre-Requirements
 - Microsoft SQL Server 2017
-- .bak File wiederherstellen
 - .NET Framework 4.6.1
 
 ## Getting Started
-### Connection-String setzen
+### Schritt 1: Datenbank Backup restoren
+Das mitgelieferte .bak File im SQL Server Studio restoren, am besten mit dem Namen "ZBW.BPFM.DBAdv.ErpDb"
 
-#### Vor dem Ausführen
+### Schritt 2: Connection-String setzen
+
+#### Im Release-Binary Verzeichnis
 Beim Binary-Zip im File "ZBW.BPFM.DBAdv.ErpClient.exe.config" 
 
 In der Sektion "connectionStrings", im Parameter "ErpContext", im Attribut "connectionString":
@@ -20,7 +23,7 @@ In der Sektion "connectionStrings", im Parameter "ErpContext", im Attribut "conn
 
 Speichern
 
-#### Vor dem Debuggen
+#### Im app.config
 Im Sourcecode nach im File app.config die obigen Anweisungen wiederholen oder die Werte aus dem .exe.config übernehmen
 
 ### Run or Debug
