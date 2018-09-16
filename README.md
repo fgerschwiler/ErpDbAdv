@@ -9,7 +9,11 @@ Ein WPF-Client mit Entity-Frameworks DB-First Anbindung.
 ### Schritt 1: Datenbank Backup restoren
 Das mitgelieferte .bak File im SQL Server Studio restoren, am besten mit dem Namen "ZBW.BPFM.DBAdv.ErpDb"
 
-### Schritt 2: Connection-String setzen
+### Schritt 2: Binaries herunterladen
+https://github.com/fgerschwiler/ErpDbAdv/releases/download/v.0.9.0.0/Erp-Client.zip
+Hinweis: ggf. entblocken, dann entzippen
+
+### Schritt 3: Connection-String setzen
 
 #### Im Release-Binary Verzeichnis
 Beim Binary-Zip im File "ZBW.BPFM.DBAdv.ErpClient.exe.config" 
@@ -26,5 +30,5 @@ Speichern
 #### Im app.config
 Im Sourcecode nach im File app.config die obigen Anweisungen wiederholen oder die Werte aus dem .exe.config übernehmen
 
-### Schritt 3: Run or Debug
+### Schritt 4: Run or Debug
 Den Releasebuild "ZBW.BPFM.DBAdv.ErpClient.exe" starten oder im Visual Studio das Projekt "ZBW.BPFM.DBAdv.ErpClient" Debuggen.
