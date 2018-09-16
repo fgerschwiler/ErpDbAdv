@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZBW.BPFM.DBAdv.ErpClient.Utilities
+﻿namespace ZBW.BPFM.DBAdv.ErpClient.Utilities
 {
     public class FragmentConstants
     {

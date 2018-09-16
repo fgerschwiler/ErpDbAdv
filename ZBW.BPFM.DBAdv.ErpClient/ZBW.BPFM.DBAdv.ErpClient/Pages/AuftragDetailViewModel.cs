@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using ZBW.BPFM.DBAdv.DBAccess;
 using ZBW.BPFM.DBAdv.ErpClient.Annotations;
 namespace ZBW.BPFM.DBAdv.ErpClient.Pages
@@ -18,7 +14,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public bool EnableKeyFields
         {
-            get { return _enableKeyFields; }
+            get => _enableKeyFields;
             set
             {
                 if (value == _enableKeyFields) return;
@@ -29,7 +25,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public kunde SelectedKunde
         {
-            get { return Auftrag?.kunde; }
+            get => Auftrag?.kunde;
             set
             {
 
@@ -45,32 +41,29 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         public bool CanAddPositionen => CanSave && Auftrag != null && Auftrag.Id != 0;
 
-        readonly AuftragRepository _repository;
+        private readonly AuftragRepository _repository = new AuftragRepository();
         private bool _enableKeyFields;
         private string _error = "";
 
-        public static AuftragDetailViewModel FromExisting(bestellung b)
-        {
-            return new AuftragDetailViewModel { Auftrag = b, EnableKeyFields = false, SelectedKunde = b.kunde };
-        }
-
         public AuftragDetailViewModel()
         {
-            _repository = new AuftragRepository();
             Auftrag = new bestellung
             {
                 Bestelldatum = DateTime.Now
             };
 
             EnableKeyFields = true;
+            Kunden = new ObservableCollection<kunde>(new KundeRepository().GetAll().ToList());
+        }
 
-            var repo = new KundeRepository();
-            Kunden = new ObservableCollection<kunde>(repo.GetAll().ToList());
+        public static AuftragDetailViewModel FromExisting(bestellung b)
+        {
+            return new AuftragDetailViewModel { Auftrag = b, EnableKeyFields = false, SelectedKunde = b.kunde };
         }
 
         public void UpdateAuftrag()
         {
-            if (!string.IsNullOrWhiteSpace(this.Error))
+            if (!string.IsNullOrWhiteSpace(Error))
                 return;
 
             if (Auftrag.Id == 0)
@@ -84,14 +77,6 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             _repository.Remove(Auftrag.Id);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public string this[string columnName]
         {
             get
@@ -99,7 +84,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
                 var result = "";
                 if (columnName == nameof(SelectedKunde))
                 {
-                    if (this.SelectedKunde == null)
+                    if (SelectedKunde == null)
                     {
                         result = "Bitte wählen Sie einen Kunden aus";
                     }
@@ -113,5 +98,13 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         }
 
         public string Error => _error;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

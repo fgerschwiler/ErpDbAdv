@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using ZBW.BPFM.DBAdv.DBAccess;
 using ZBW.BPFM.DBAdv.ErpClient.Annotations;
@@ -13,10 +11,9 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
 {
     public class BestellpositionViewModel : INotifyPropertyChanged
     {
-        private IDataRepository<bestellposition> _bpositionenRepo;
-        private readonly IDataRepository<artikel> _artikelRepo;
-        private readonly IDataRepository<lagerposition> _lagerpRepo;
-        private readonly IDataRepository<kundenpreis> _kundenPreisRepo;
+        private readonly IDataRepository<bestellposition> _bpositionenRepo = new BestellPositionRepository();
+        private readonly IDataRepository<artikel> _artikelRepo = new DataRepository<artikel>();
+        private readonly IDataRepository<lagerposition> _lagerpRepo = new LagerpositionRepository();
         private bool _enableKeyFields;
 
         public ObservableCollection<artikel> ArtikelSource { get; set; }
@@ -24,7 +21,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
 
         public bool EnableKeyFields  
         {
-            get { return _enableKeyFields; }
+            get => _enableKeyFields;
             set
             {
                 if (value == _enableKeyFields) return;
@@ -84,7 +81,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
 
         public artikel SelectedArtikel
         {
-            get { return BestellPosition?.artikel; }
+            get => BestellPosition?.artikel;
             set
             {
                 if (BestellPosition == null)
@@ -108,7 +105,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
 
         public lagerposition SelectedLagerPosition
         {
-            get { return BestellPosition?.lagerposition; }
+            get => BestellPosition?.lagerposition;
             set
             {
                 if (BestellPosition == null)
@@ -125,11 +122,6 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
 
         public BestellpositionViewModel()
         {
-            _bpositionenRepo = new BestellPositionRepository();
-            _artikelRepo = new DataRepository<artikel>();
-            _kundenPreisRepo = new DataRepository<kundenpreis>();
-            _lagerpRepo = new LagerpositionRepository();
-
             ArtikelSource = new ObservableCollection<artikel>(_artikelRepo.GetAll());
             LagerPositionen = new ObservableCollection<lagerposition>(_lagerpRepo.GetAll());
         }
@@ -140,7 +132,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Dialogs
             {
                 BestellPosition = new bestellposition
                 {
-                    kundenpreis = new kundenpreis {},
+                    kundenpreis = new kundenpreis(),
                     bestellung =  bestellung
                 },
                 EnableKeyFields = true

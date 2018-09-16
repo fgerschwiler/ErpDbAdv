@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ZBW.BPFM.DBAdv.DBAccess;
 using ZBW.BPFM.DBAdv.ErpClient.Annotations;
 
@@ -32,32 +27,8 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             }
         }
 
-        public bool HasError
-        {
-            get => _hasError;
-            set
-            {
-                if (value == _hasError) return;
-                _hasError = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool HasSuccess
-        {
-            get => _hasSuccess;
-            set
-            {
-                if (value == _hasSuccess) return;
-                _hasSuccess = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private readonly AuftragRepository _repository = null;
+        private readonly AuftragRepository _repository;
         private string _searchFilter;
-        private bool _hasError;
-        private bool _hasSuccess;
 
         public AuftragViewModel()
         {

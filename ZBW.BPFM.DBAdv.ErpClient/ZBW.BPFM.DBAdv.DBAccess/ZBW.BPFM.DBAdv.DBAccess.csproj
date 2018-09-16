@@ -62,12 +62,12 @@
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="bestellposition.partial.cs" />
-    <Compile Include="BestellpositionRepository.cs" />
-    <Compile Include="KundeRepository.cs" />
-    <Compile Include="LagerpositionRepository.cs" />
+    <Compile Include="Repositories\BestellpositionRepository.cs" />
+    <Compile Include="Repositories\KundeRepository.cs" />
+    <Compile Include="Repositories\LagerpositionRepository.cs" />
     <Compile Include="lagerposition.partial.cs" />
-    <Compile Include="DataRepository.cs" />
-    <Compile Include="AuftragRepository.cs" />
+    <Compile Include="Repositories\DataRepository.cs" />
+    <Compile Include="Repositories\AuftragRepository.cs" />
     <Compile Include="bestellposition.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
@@ -75,7 +75,7 @@
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="bestellung.partial.cs" />
-    <Compile Include="IDataRepository.cs" />
+    <Compile Include="Repositories\IDataRepository.cs" />
     <Compile Include="kunde.partial.cs" />
     <Compile Include="ErpModel.Context.cs">
       <AutoGen>True</AutoGen>

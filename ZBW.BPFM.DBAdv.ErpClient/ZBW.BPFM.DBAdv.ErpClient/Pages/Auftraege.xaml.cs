@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
@@ -14,13 +13,24 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
     /// </summary>
     public partial class Auftraege : UserControl, IContent
     {
-        private readonly AuftragViewModel viewModel;
+        private readonly AuftragViewModel _viewModel;
         public Auftraege()
         {
             InitializeComponent();
             
-            viewModel = new AuftragViewModel();
-            DataContext = viewModel;
+            _viewModel = new AuftragViewModel();
+            DataContext = _viewModel;
+        }
+
+        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        {
+            var fragment = Fragment.FromString(e.Fragment);
+            if (fragment != null && IsRefreshRequested(fragment))
+                _viewModel.Refresh();
+        }
+        private bool IsRefreshRequested(Fragment f)
+        {
+            return f.ContainsKey(FragmentConstants.REFRESH_KEY) && f[FragmentConstants.REFRESH_KEY] == FragmentConstants.DO_REFRESH;
         }
 
         private void Auftrag_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -32,13 +42,12 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             }
         }
 
-        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        private void NewBestellungButton_Click(object sender, RoutedEventArgs e)
         {
-            var fragment = Fragment.FromString(e.Fragment);
-            if (fragment != null && IsRefreshRequested(fragment)) 
-                viewModel.Refresh();
+            NavigationCommands.GoToPage.Execute($"/Pages/{nameof(AuftragDetail)}.xaml#id=0", this);
         }
 
+        #region Empty navigation events
         public void OnNavigatedFrom(NavigationEventArgs e)
         {
         
@@ -53,15 +62,6 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         {
           
         }
-
-        private bool IsRefreshRequested(Fragment f)
-        {
-            return f.ContainsKey(FragmentConstants.REFRESH_KEY) && f[FragmentConstants.REFRESH_KEY] == FragmentConstants.DO_REFRESH;
-        }
-
-        private void NewBestellungButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationCommands.GoToPage.Execute($"/Pages/{nameof(AuftragDetail)}.xaml#id=0", this);
-        }
+        #endregion
     }
 }

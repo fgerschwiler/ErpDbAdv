@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
@@ -23,6 +21,10 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        ///  Occurs, When this Page was called with a Fragment-Url ex. (?id=12)
+        /// </summary>
+        /// <param name="e"></param>
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
             var fragment = Fragment.FromString(e.Fragment);
@@ -64,7 +66,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         private void OnAddBestellpositionButton_Clicked(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.ViewModel.Error))
+            if (!string.IsNullOrWhiteSpace(ViewModel.Error))
             {
                 return;
             }
@@ -80,6 +82,20 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         {
             ViewModel.UpdateAuftrag();
             Reload(ViewModel.Auftrag.Id);
+        }
+
+        private void OnBestellposition_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as bestellposition;
+            if (item != null)
+            {
+                var success = PromptUpdateBestellpositionDialog(item);
+                if (success)
+                {
+                    Reload(item.bestellung.Id);
+                }
+
+            }
         }
 
         private bool PromptNewBestellpositionDialog()
@@ -119,6 +135,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             return dlg.ShowDialog() ?? false;
         }
 
+        #region empty navigation events
         public void OnNavigatedFrom(NavigationEventArgs e)
         {
 
@@ -133,19 +150,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         {
 
         }
+        #endregion
 
-        private void OnBestellposition_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var item = ((FrameworkElement)e.OriginalSource).DataContext as bestellposition;
-            if (item != null)
-            {
-                var success = PromptUpdateBestellpositionDialog(item);
-                if (success)
-                {
-                    Reload(item.bestellung.Id);
-                }
-
-            }
-        }
     }
 }
