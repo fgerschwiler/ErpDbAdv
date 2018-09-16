@@ -12,7 +12,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
 {
     public class LagerpositionRepository : DataRepository<lagerposition>
     {
-        public override IEnumerable<lagerposition> GetAll(Func<lagerposition, bool> where = null)
+        public override List<lagerposition> GetAll(Func<lagerposition, bool> where = null)
         {
             using (var ctx = new ErpContext())
             {
@@ -22,7 +22,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 if (where != null)
                     baseQuery = baseQuery.Where(where);
 
-                return baseQuery;
+                return baseQuery.ToList();
             }
         }
 

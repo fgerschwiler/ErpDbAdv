@@ -1,4 +1,4 @@
-﻿<mui:ModernDialog x:Class="ZBW.BPFM.DBAdv.ErpClient.Dialogs.NeueBestellpositionDialog"
+﻿<mui:ModernDialog x:Class="ZBW.BPFM.DBAdv.ErpClient.Dialogs.BestellpositionDialog"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,6 +35,19 @@
             <StackPanel>
                 <Label Content="Lagerposition" />
                 <ComboBox Width="150" ItemsSource="{Binding LagerPositionen}" SelectedItem="{Binding SelectedLagerPosition, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Verkaufspreis" />
+                <TextBox IsReadOnly="true" Width="150" Text="{Binding BestellPosition.Total, Mode=OneWay}" />
+            </StackPanel>
+            <Label Content="Kundenpreis (optional)" Width="292" HorizontalAlignment="Right" Height="27" Margin="0 10 0 0"/>
+            <StackPanel>
+                <Label Content="Rabatt (%)" />
+                <TextBox Width="150" Text="{Binding Rabatt, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Gültig bis" />
+                <DatePicker Width="150" SelectedDate="{Binding GueltigBis, Mode=TwoWay, ValidatesOnDataErrors=True}" />
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -6,27 +6,28 @@ using System.Threading.Tasks;
 
 namespace ZBW.BPFM.DBAdv.ErpClient.Utilities
 {
-    public class Fragment
+    public class Fragment : Dictionary<string, string>
     {
-        public string Key { get; set; }
-        public string Value { get; set; }
-
-        public Fragment(string key, string value)
-        {
-            Key = key;
-            Value = value;
-        }
 
         public static Fragment FromString(string f)
         {
             if (string.IsNullOrWhiteSpace(f))
                 return null;
 
-            var pair = f.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
-            if (pair.Length != 2 || string.IsNullOrWhiteSpace(pair[1]))
-                return null;
+            var pairs = f.Split(new[] { "&", "=" }, StringSplitOptions.RemoveEmptyEntries);
 
-            return new Fragment(pair[0], pair[1]);
+            if (pairs.Length % 2 > 0)
+                throw new InvalidOperationException("fragment must have key and values");
+
+            var dict = new Fragment();
+
+            for (int i = 0; i < pairs.Length; i++)
+            {
+                dict[pairs[i]] = pairs[i + 1];
+                i++;
+            }
+
+            return dict;
         }
     }
 }

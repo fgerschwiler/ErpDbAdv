@@ -26,10 +26,18 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
             var fragment = Fragment.FromString(e.Fragment);
-            if (fragment == null || fragment.Key != FragmentConstants.ID_KEY)
+            if (fragment == null)
                 return;
 
-            var id = int.Parse(fragment.Value);
+            if (fragment.ContainsKey(FragmentConstants.ID_KEY))
+            {
+                var id = int.Parse(fragment[FragmentConstants.ID_KEY]);
+                Reload(id);
+            }
+        }
+
+        private void Reload(int id)
+        {
             ViewModel = new AuftragDetailViewModel(id);
             DataContext = ViewModel;
         }
@@ -41,7 +49,11 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         private void OnAddBestellpositionButton_Clicked(object sender, RoutedEventArgs e)
         {
-            PromptBestellpositionDialog();
+            var success = PromptNewBestellpositionDialog();
+            if (success)
+            {
+                Reload(ViewModel.Auftrag.Id);
+            }
         }
 
         private void OnSaveButton_Click(object sender, RoutedEventArgs e)
@@ -55,11 +67,23 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
             NavigationCommands.GoToPage.Execute(p, null);
         }
 
-        private bool PromptBestellpositionDialog()
+        private bool PromptNewBestellpositionDialog()
         {
-            var dlg = new NeueBestellpositionDialog(ViewModel.Auftrag)
+            var dlg = new BestellpositionDialog(ViewModel.Auftrag)
             {
                 Title = "Neue Bestellposition",
+                Width = 500,
+            };
+
+            dlg.Buttons = new[] { dlg.OkButton, dlg.CancelButton };
+            return dlg.ShowDialog() ?? false;
+        }
+
+        private bool PromptUpdateBestellpositionDialog(bestellposition p)
+        {
+            var dlg = new BestellpositionDialog(p)
+            {
+                Title = "Bestellposition ändern",
                 Width = 500,
             };
 
@@ -93,6 +117,20 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
 
+        }
+
+        private void OnBestellposition_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((FrameworkElement)e.OriginalSource).DataContext as bestellposition;
+            if (item != null)
+            {
+                var success = PromptUpdateBestellpositionDialog(item);
+                if (success)
+                {
+                    Reload(item.bestellung.Id);
+                }
+
+            }
         }
     }
 }

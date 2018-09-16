@@ -61,6 +61,8 @@
     <Compile Include="audit.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="bestellposition.partial.cs" />
+    <Compile Include="BestellpositionRepository.cs" />
     <Compile Include="LagerpositionRepository.cs" />
     <Compile Include="lagerposition.partial.cs" />
     <Compile Include="DataRepository.cs" />

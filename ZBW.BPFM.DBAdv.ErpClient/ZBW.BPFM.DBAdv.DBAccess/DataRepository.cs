@@ -13,7 +13,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
 {
     public class DataRepository<T> : IDataRepository<T> where T: class
     {
-        public virtual IEnumerable<T> GetAll(Func<T, bool> where = null)
+        public virtual List<T> GetAll(Func<T, bool> where = null)
         {
             using (var ctx = new ErpContext())
             {
@@ -22,7 +22,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
                 if (where != null)
                     baseQuery = baseQuery.Where(where); // running filter in-memory, because of non-db fields like displayname's etc.
 
-                return baseQuery;
+                return baseQuery.ToList();
             }
         }
 

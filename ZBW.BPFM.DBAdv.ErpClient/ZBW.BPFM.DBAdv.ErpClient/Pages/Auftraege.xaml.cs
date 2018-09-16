@@ -56,7 +56,7 @@ namespace ZBW.BPFM.DBAdv.ErpClient.Pages
 
         private bool IsRefreshRequested(Fragment f)
         {
-            return f.Key == FragmentConstants.REFRESH_KEY && f.Value == FragmentConstants.DO_REFRESH;
+            return f.ContainsKey(FragmentConstants.REFRESH_KEY) && f[FragmentConstants.REFRESH_KEY] == FragmentConstants.DO_REFRESH;
         }
     }
 }

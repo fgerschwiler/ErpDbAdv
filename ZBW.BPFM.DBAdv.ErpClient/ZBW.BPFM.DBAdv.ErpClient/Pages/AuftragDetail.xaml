@@ -48,7 +48,7 @@
                 </Grid>
 
                 <Grid Margin="0,254,0,0">
-                    <DataGrid ItemsSource="{Binding Path=bestellposition}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=bestellposition}" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="OnBestellposition_MouseDoubleClick">
                         <DataGrid.Columns>
                             <mui:DataGridTextColumn  Header="PositionNr" Binding="{Binding Id}"/>
                             <mui:DataGridTextColumn  Header="ArtikelId" Binding="{Binding artikel.Id}"/>

@@ -69,12 +69,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Dialogs\BestellpositionViewModel.cs" />
-    <Compile Include="Dialogs\NeueBestellpositionDialog.xaml.cs">
-      <DependentUpon>NeueBestellpositionDialog.xaml</DependentUpon>
+    <Compile Include="Dialogs\BestellpositionDialog.xaml.cs">
+      <DependentUpon>BestellpositionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Fragment.cs" />
     <Compile Include="Utilities\FragmentConstants.cs" />
-    <Page Include="Dialogs\NeueBestellpositionDialog.xaml">
+    <Page Include="Dialogs\BestellpositionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

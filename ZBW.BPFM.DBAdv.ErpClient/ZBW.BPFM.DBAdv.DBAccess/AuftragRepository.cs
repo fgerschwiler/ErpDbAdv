@@ -12,7 +12,7 @@ namespace ZBW.BPFM.DBAdv.DBAccess
 {
     public class AuftragRepository : DataRepository<bestellung>
     {
-        public override IEnumerable<bestellung> GetAll(Func<bestellung, bool> where = null)
+        public override List<bestellung> GetAll(Func<bestellung, bool> where = null)
         {
             using (var ctx = new ErpContext())
             {
